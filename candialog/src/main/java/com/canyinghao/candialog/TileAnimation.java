@@ -11,7 +11,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -181,7 +181,7 @@ public class TileAnimation {
                 int currentY = isIn ? xy.y + points[i][0].y + moves[i].y : xy.y + points[i][0].y;
                 int targetY = !isIn ? xy.y + points[i][0].y + moves[i].y : xy.y + points[i][0].y;
 
-                Animator move = obj.moveTo(currentX, targetX, currentY, targetY, 1, new AccelerateInterpolator());
+                Animator move = obj.moveTo(currentX, targetX, currentY, targetY, 1, new LinearInterpolator());
                 Animator alpha = obj.alpha(isIn ? 0 : 1, isIn ? 1 : 0, 1, null, false);
 
                 together = animationTogether(move, alpha);
@@ -219,6 +219,8 @@ public class TileAnimation {
     }
 
     public static Animator[] show(Activity act, final View v, boolean isIn) {
+
+
 
 
         return show(act, v, v.getWidth(), v.getHeight(), isIn);

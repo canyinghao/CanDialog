@@ -26,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -132,6 +133,9 @@ public final class CanDialog extends FrameLayout {
     private Animator mAnimatorStart;
     //    消失动画
     private Animator mAnimatorEnd;
+
+    //  用来监听view是否测量完毕
+    private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
     //   消失时监听
     private CanDialogInterface.OnDismissListener mOnDismissListener;
@@ -314,7 +318,6 @@ public final class CanDialog extends FrameLayout {
             @Override
             public void onClick(View view) {
 
-
                 if (listener != null) {
 
                     switch (mType) {
@@ -334,9 +337,12 @@ public final class CanDialog extends FrameLayout {
 
                 }
 
+
                 if (dismiss) {
                     dismiss();
                 }
+
+
             }
         });
 
@@ -811,8 +817,8 @@ public final class CanDialog extends FrameLayout {
         FrameLayout layout = createAnimLayout();
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
-        params.leftMargin = 40;
-        params.rightMargin = 40;
+        params.leftMargin = InputUtils.dp2px(mContext, 20);
+        params.rightMargin = InputUtils.dp2px(mContext, 20);
         layout.addView(this, params);
 
 
@@ -822,6 +828,7 @@ public final class CanDialog extends FrameLayout {
                 mAnimatorStart.start();
             } catch (Exception e) {
                 e.printStackTrace();
+                isAnimatorPlaying = false;
                 setVisibility(View.VISIBLE);
             }
 
@@ -830,7 +837,6 @@ public final class CanDialog extends FrameLayout {
 
             mOnShowListener.onShow(mDialog);
         }
-
 
 
     }
@@ -843,10 +849,13 @@ public final class CanDialog extends FrameLayout {
 
         if (mAnimatorEnd != null) {
             try {
+
                 mAnimatorEnd.start();
             } catch (Exception e) {
                 e.printStackTrace();
+                isAnimatorPlaying = false;
                 dismissAll();
+
             }
 
         } else {
@@ -872,6 +881,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 是否显示中
+     *
      * @return
      */
     public boolean isShow() {
@@ -882,6 +892,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 创建animLayout层
+     *
      * @return
      */
     private FrameLayout createAnimLayout() {
@@ -1001,6 +1012,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 获取CircularReveal动画
+     *
      * @param isShow
      * @param status
      * @return
@@ -1017,26 +1029,36 @@ public final class CanDialog extends FrameLayout {
                 }
                 isAnimatorPlaying = true;
 
+                if (onGlobalLayoutListener != null) {
+                    getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
+                    onGlobalLayoutListener = null;
+                }
+                mContentPanel.setTag(null);
+
                 if (isShow) {
                     setVisibility(View.INVISIBLE);
-                    postDelayed(new Runnable() {
+                    onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
-                        public void run() {
-                            setVisibility(View.VISIBLE);
+                        public void onGlobalLayout() {
+                            if (mContentPanel.getTag() == null) {
+                                setVisibility(View.VISIBLE);
 
 
-                            int radius = getCircularRadius();
+                                int radius = getCircularRadius();
 
-                            int[] point = getCircularPoint(status);
+                                int[] point = getCircularPoint(status);
 
-                            final Animator animator = ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], 0, radius);
-                            animator.setDuration(1000);
-                            animator.addListener(animatorListener);
-                            animator.start();
-
+                                final Animator animator = ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], 0, radius);
+                                animator.setDuration(1000);
+                                animator.addListener(animatorListener);
+                                animator.start();
+                                mContentPanel.setTag("");
+                            }
 
                         }
-                    }, 100);
+                    };
+
+                    getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
 
 
                 } else {
@@ -1081,6 +1103,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 获取CircularReveal动画开始点
+     *
      * @param status
      * @return
      */
@@ -1117,6 +1140,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 磁块动画
+     *
      * @param isShow
      * @return
      */
@@ -1133,42 +1157,60 @@ public final class CanDialog extends FrameLayout {
                 }
                 isAnimatorPlaying = true;
 
+                if (onGlobalLayoutListener != null) {
+                    getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
+                    onGlobalLayoutListener = null;
+                }
+                mContentPanel.setTag(null);
 
                 if (isShow) {
                     setVisibility(View.INVISIBLE);
-                    postDelayed(new Runnable() {
+
+                    onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
-                        public void run() {
-                            Animator animator = CanAnimation.animationTogether(TileAnimation.show(mContext, mDialog, isShow));
-                            animator.addListener(animatorListener);
-                            animator.start();
+                        public void onGlobalLayout() {
+                            if (mContentPanel.getTag() == null) {
+                                Animator animator = CanAnimation.animationTogether(TileAnimation.show(mContext, mDialog, isShow));
+                                animator.addListener(animatorListener);
+                                animator.start();
+                                mContentPanel.setTag("");
+                            }
 
                         }
-                    }, 100);
+                    };
+
+                    getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+
 
                 } else {
 
                     final Animator animatorTile = CanAnimation.animationTogether(TileAnimation.show(mContext, mDialog, isShow));
 
 
-                    postDelayed(new Runnable() {
+                    onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
-                        public void run() {
+                        public void onGlobalLayout() {
+                            if (mContentPanel.getTag() == null) {
+                                animatorTile.addListener(animatorListener);
 
-                            animatorTile.addListener(animatorListener);
+                                CanAnimation.animationSequence(
+                                        animatorTile,
+                                        CanAnimation.run(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                dismissAll();
+                                            }
+                                        })
 
-                            CanAnimation.animationSequence(
-                                    animatorTile,
-                                    CanAnimation.run(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            dismissAll();
-                                        }
-                                    })
+                                ).start();
+                                mContentPanel.setTag("");
+                            }
 
-                            ).start();
                         }
-                    }, 100);
+                    };
+
+                    getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
+
 
                 }
 
@@ -1181,9 +1223,9 @@ public final class CanDialog extends FrameLayout {
 
 
     /**
-     *
      * dialog改变成msg类型，并播放icon的动画
      * 自有ICON_INFO类型可以改变成其它类型
+     *
      * @param animType
      * @param message
      */
@@ -1236,6 +1278,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 播放svg动画
+     *
      * @param drawable
      * @return
      */
@@ -1255,6 +1298,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 设置icon的类型
+     *
      * @param type
      * @param color
      */
@@ -1300,6 +1344,7 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 设置icon的drawable和颜色
+     *
      * @param drawable
      * @param color
      */
@@ -1307,12 +1352,12 @@ public final class CanDialog extends FrameLayout {
         if (color != 0) {
             applyTint(drawable, color);
         }
-        int dp_20 = (int) mContext.getResources().getDimension(R.dimen.dp_20);
+        int dp_20 = InputUtils.dp2px(mContext, 20);
 
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIcon.getLayoutParams();
         params.height = dp_20;
         params.width = dp_20;
-        params.rightMargin = (int) mContext.getResources().getDimension(R.dimen.dp_8);
+        params.rightMargin = InputUtils.dp2px(mContext, 8);
         mIcon.setLayoutParams(params);
         setIcon(drawable);
     }
@@ -1540,7 +1585,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setFullBackgroundColor( int color) {
+        public Builder setFullBackgroundColor(int color) {
             mDialog.setFullBackgroundColor(color);
             return this;
         }

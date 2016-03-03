@@ -3,6 +3,7 @@ package com.canyinghao.candialog.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 new CanDialog.Builder(this)
+                        .setIconType(CanDialog.ICON_WARNING)
                         .setTitle("Dialog Title")
                         .setMessage("Dialog Message")
                         .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
@@ -200,6 +202,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
+
+
+          new   AlertDialog.Builder(this)
+                  .setIcon(R.mipmap.ic_launcher)
+                  .setTitle("Dialog Title")
+                  .setMessage("Dialog Message")
+                  .setNegativeButton("cancel",  null)
+                  .setPositiveButton("sure",  null)
+                  .show();
 
 
             return true;
