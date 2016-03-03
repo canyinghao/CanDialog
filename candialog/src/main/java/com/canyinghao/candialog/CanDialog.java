@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -317,6 +318,8 @@ public final class CanDialog extends FrameLayout {
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                hideSoftInput();
 
                 if (listener != null) {
 
@@ -875,6 +878,7 @@ public final class CanDialog extends FrameLayout {
             mOnDismissListener.onDismiss(mDialog);
         }
 
+
         removeAnimLayout();
 
     }
@@ -889,6 +893,22 @@ public final class CanDialog extends FrameLayout {
         return isShowing;
     }
 
+
+    /**
+     * 隐藏软键盘
+     */
+    private void hideSoftInput() {
+
+        if (mType != DIALOG_EDIT) {
+            return;
+        }
+
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        imm.hideSoftInputFromWindow(findViewById(R.id.et_pwd).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+    }
 
     /**
      * 创建animLayout层
