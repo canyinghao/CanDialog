@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:duration="500"
+    android:propertyName="pathData"
+    android:valueFrom ="@string/svg_eye"
+    android:valueTo ="@string/svg_eyeclose"
+    android:valueType="pathType"
+    app:vc_valueType="pathType" />

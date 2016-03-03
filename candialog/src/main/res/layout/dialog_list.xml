@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/select_dialog_listview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:cacheColorHint="@null"
+      android:divider="?attr/listDividerAlertDialog"
+      android:scrollbars="vertical"
+      android:overScrollMode="ifContentScrolls"
+      android:fadingEdge="none"
+      android:paddingTop="@dimen/abc_dialog_list_padding_vertical_material"
+      android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
+      android:clipToPadding="false"
+      style="@style/Widget.AppCompat.ListView" /><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/mnc-sdk-release/frameworks/support/v7/appcompat/res/layout/abc_select_dialog_material.xml -->
