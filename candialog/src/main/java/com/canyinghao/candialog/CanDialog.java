@@ -11,7 +11,11 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.IntRange;
+import android.support.annotation.IntegerRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
@@ -1365,7 +1369,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setIcon(int resId) {
+        public Builder setIcon(@IntegerRes int resId) {
             mDialog.setIcon(resId);
 
             return this;
@@ -1377,7 +1381,7 @@ public final class CanDialog extends FrameLayout {
             return this;
         }
 
-        public Builder setTitle(int rid) {
+        public Builder setTitle(@StringRes int rid) {
 
             mDialog.setTitle(rid);
 
@@ -1391,7 +1395,7 @@ public final class CanDialog extends FrameLayout {
             return this;
         }
 
-        public Builder setMessage(int rid) {
+        public Builder setMessage(@StringRes int rid) {
             mDialog.setMessage(rid);
 
             return this;
@@ -1405,7 +1409,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setPositiveButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+        public Builder setPositiveButton(@StringRes int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
             mDialog.setPositiveButton(textId, dismiss, listener);
 
             return this;
@@ -1418,7 +1422,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setNegativeButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+        public Builder setNegativeButton(@StringRes int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
             mDialog.setNegativeButton(textId, dismiss, listener);
 
             return this;
@@ -1432,7 +1436,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setNeutralButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+        public Builder setNeutralButton(@StringRes int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
             mDialog.setNeutralButton(textId, dismiss, listener);
             return this;
         }
@@ -1450,7 +1454,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setView(int layoutResId) {
+        public Builder setView(@LayoutRes int layoutResId) {
 
             mDialog.setView(layoutResId);
 
@@ -1466,7 +1470,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setItems(int itemsId, CanDialogInterface.OnClickListener listener) {
+        public Builder setItems(@ArrayRes int itemsId, CanDialogInterface.OnClickListener listener) {
 
             mDialog.setItems(itemsId, listener);
 
@@ -1481,7 +1485,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setSingleChoiceItems(int mItemsId, int checkedItem,
+        public Builder setSingleChoiceItems(@ArrayRes int mItemsId, int checkedItem,
                                             CanDialogInterface.OnClickListener listener) {
             mDialog.setSingleChoiceItems(mItemsId, checkedItem, listener);
 
@@ -1496,7 +1500,7 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setMultiChoiceItems(int mItemsId, final boolean[] checkedItems,
+        public Builder setMultiChoiceItems(@ArrayRes int mItemsId, final boolean[] checkedItems,
                                            final CanDialogInterface.OnMultiChoiceClickListener listener) {
 
             mDialog.setMultiChoiceItems(mItemsId, checkedItems, listener);
@@ -1536,12 +1540,12 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setFullBackgroundColor(int color) {
+        public Builder setFullBackgroundColor( int color) {
             mDialog.setFullBackgroundColor(color);
             return this;
         }
 
-        public Builder setFullBackgroundResource(int rid) {
+        public Builder setFullBackgroundResource(@IntegerRes int rid) {
             mDialog.setFullBackgroundResource(rid);
 
             return this;
