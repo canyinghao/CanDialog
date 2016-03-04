@@ -3,6 +3,12 @@
 
  ![](./pic/CanDialog.gif) 
  
+ 
+ ##添加依赖
+```JAVA
+compile 'com.canyinghao:candialog:1.0.0'
+```
+ 
 ## 使用方式 
 **1. 使用方法**  
 CanDialog是一个继承FrameLayout，将view添加到getWindow().getDecorView()里面，仿照系统AlertDialog写成的。使用方式与AlertDialog大同小异。增加了两种动画效果，增加了一个输入框的布局和一个加载中的布局，还加了一些svg动画。Button点击后是否可取消，可以直接传参确定。button点击事件中能够返回单选、多选、输入框的结果。
