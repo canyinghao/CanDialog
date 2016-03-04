@@ -155,6 +155,7 @@ CanDialog是一个继承FrameLayout，将view添加到getWindow().getDecorView()
 **2. 注意事项**  
 由于使用了svg做动画，可以兼容到14+。
 使用的其它库：
+
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.canyinghao:cananimation:1.0.2'
     compile 'com.canyinghao:caneffect:1.0.2'
