@@ -336,6 +336,9 @@ public final class CanDialog extends FrameLayout {
                         case DIALOG_MULTI_CHOICE:
                             listener.onClick(mDialog, 0, null, checkedItems);
                             break;
+                        default:
+                            listener.onClick(mDialog, 0, null, null);
+                            break;
                     }
 
                 }
@@ -628,11 +631,11 @@ public final class CanDialog extends FrameLayout {
         if (isPwd) {
             eye.setVisibility(View.VISIBLE);
 
-            final Drawable eyeClose = ResourcesCompat.getDrawable(mContext, R.drawable.svg_eyeclose);
+            final Drawable eyeClose = ResourcesCompat.getDrawable(mContext, R.drawable.svg_eye);
             if (eyeColor != 0) {
                 applyTint(eyeClose, eyeColor);
             }
-            eye.setImageDrawable(ResourcesCompat.getDrawable(mContext, R.drawable.svg_eyeclose));
+            eye.setImageDrawable(eyeClose);
 
 
             eye.setOnClickListener(new OnClickListener() {
@@ -641,7 +644,7 @@ public final class CanDialog extends FrameLayout {
                     if (v.getTag() == null) {
 
 
-                        final Drawable drawable = ResourcesCompat.getDrawable(mContext, R.drawable.svg_animated_eyeclose2eye);
+                        final Drawable drawable = ResourcesCompat.getDrawable(mContext, R.drawable.svg_animated_eye2eyeclose);
                         if (eyeColor != 0) {
                             applyTint(drawable, eyeColor);
                         }
@@ -661,7 +664,7 @@ public final class CanDialog extends FrameLayout {
                         v.setTag("");
                     } else {
 
-                        final Drawable drawable = ResourcesCompat.getDrawable(mContext, R.drawable.svg_animated_eye2eyeclose);
+                        final Drawable drawable = ResourcesCompat.getDrawable(mContext, R.drawable.svg_animated_eyeclose2eye);
                         if (eyeColor != 0) {
                             applyTint(drawable, eyeColor);
                         }
