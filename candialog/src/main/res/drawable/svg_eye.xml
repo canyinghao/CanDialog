@@ -19,7 +19,7 @@
             android:strokeWidth="6"
             android:strokeColor="#666666"
             android:fillColor="#666666"
-            android:pathData="@string/svg_eye"
+
 
             app:vc_strokeColor="#666666"
             app:vc_fillColor="#666666"

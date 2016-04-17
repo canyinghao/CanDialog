@@ -16,16 +16,15 @@
 
         <path
             android:name="v"
-
             android:strokeWidth="6"
-            android:strokeColor="#f2ae43"
-            android:fillColor="#f2ae43"
+            android:strokeColor="#666666"
+            android:fillColor="#666666"
+            android:pathData="@string/svg_eyeclose"
 
-
-            app:vc_strokeColor="#f2ae43"
-            app:vc_fillColor="#f2ae43"
+            app:vc_strokeColor="#666666"
+            app:vc_fillColor="#666666"
             app:vc_strokeWidth="6"
-            app:vc_pathData="@string/svg_warning"/>
+            app:vc_pathData="@string/svg_eyeclose"/>
 
 
     </group>

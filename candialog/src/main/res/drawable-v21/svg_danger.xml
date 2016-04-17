@@ -18,15 +18,13 @@
             android:name="v"
 
             android:strokeWidth="6"
-            android:strokeColor="#f2ae43"
-            android:fillColor="#f2ae43"
+            android:strokeColor="#db524b"
+            android:fillColor="#db524b"
+            android:pathData="@string/svg_danger"
 
-
-            app:vc_strokeColor="#f2ae43"
-            app:vc_fillColor="#f2ae43"
+            app:vc_strokeColor="#db524b"
+            app:vc_fillColor="#db524b"
             app:vc_strokeWidth="6"
-            app:vc_pathData="@string/svg_warning"/>
-
-
+            app:vc_pathData="@string/svg_danger"/>
     </group>
 </vector>

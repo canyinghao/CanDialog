@@ -20,7 +20,7 @@
             android:strokeWidth="6"
             android:strokeColor="#f2ae43"
             android:fillColor="#f2ae43"
-
+            android:pathData="@string/svg_warning"
 
             app:vc_strokeColor="#f2ae43"
             app:vc_fillColor="#f2ae43"

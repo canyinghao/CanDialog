@@ -21,7 +21,7 @@
             android:strokeWidth="6"
             android:strokeColor="#58b957"
             android:fillColor="#58b957"
-            android:pathData="@string/svg_success"
+
 
             app:vc_strokeColor="#58b957"
             app:vc_fillColor="#58b957"
