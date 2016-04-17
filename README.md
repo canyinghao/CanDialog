@@ -6,7 +6,7 @@
  
 ##添加依赖
 ```JAVA
-compile 'com.canyinghao:candialog:1.0.1'
+compile 'com.canyinghao:candialog:1.0.3'
 ```
  
 ## 使用方式 
@@ -167,8 +167,10 @@ CanDialog是一个继承FrameLayout，将view添加到getWindow().getDecorView()
     compile 'com.canyinghao:caneffect:1.0.2'
     compile 'com.wnafee:vector-compat:1.0.5'
     
+**3. Android studio升级2.0后问题解决** 
+Android studio升到2.0以后，使用svg发现drawable下的svg编译时报错，android:pathData=后面不能用引用string.xml里的值，所以将值复制了过来。然后又发现21以下的系统svg导致崩溃，查明原因是Android Studio2.0将编译时将svg文件生成了其它文件放在三个文件夹，drawable-hdpi-v4、drawable-ldpi-v4、drawable-anydpi-v21里面，drawable-hdpi-v4、drawable-ldpi-v4这两个文件夹生成的是对应的svg**.png文件，drawable-anydpi-v21里面放的是原始xml文件。在21以下的系统去找svg的xml文件，找到的时png文件，解析时便会崩溃。故我在xml文件夹里将svg的xml文件都复制了一份进去，将svg_animated文件里的drawable指向@xml/svg，成功解决崩溃问题。
 
-
+从这个问题可以看出，Android studio升到2.0以后，是可以直接使用svg了，它会在21一下将svg转成对应的png图片，21及以上使用svg文件，虽说apk可能会变大，但也算是兼容了吧。
 
 ### 开发者
 
