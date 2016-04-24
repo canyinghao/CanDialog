@@ -6,7 +6,7 @@
  
 ##添加依赖
 ```JAVA
-compile 'com.canyinghao:candialog:1.0.3'
+compile 'com.canyinghao:candialog:1.0.4'
 ```
  
 ## 使用方式 
