@@ -16,6 +16,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
@@ -172,6 +173,7 @@ public final class CanDialog extends FrameLayout {
     };
 
 
+
     private CanDialog(Activity context) {
         this(context, null);
     }
@@ -184,6 +186,8 @@ public final class CanDialog extends FrameLayout {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         onCrate();
+
+
     }
 
 
@@ -192,7 +196,6 @@ public final class CanDialog extends FrameLayout {
         mDialog = this;
         LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, this);
 
-        setBackgroundResource(R.drawable.white_shape);
 
         setOnClickListener(null);
 
@@ -750,7 +753,17 @@ public final class CanDialog extends FrameLayout {
 
         hideButtons();
         hideTitle();
-        setBackgroundColor(Color.TRANSPARENT);
+
+
+       CardView cardView = (CardView) findViewById(R.id.card);
+        cardView.setCardBackgroundColor(Color.TRANSPARENT);
+        if (Build.VERSION.SDK_INT>=21){
+            cardView.setElevation(0);
+        }
+
+        FrameLayout.LayoutParams  params = (LayoutParams) cardView.getLayoutParams();
+        params.setMargins(0,0,0,0);
+        cardView.setLayoutParams(params);
         setFullBackgroundColor(Color.TRANSPARENT);
 
     }
@@ -769,6 +782,17 @@ public final class CanDialog extends FrameLayout {
         hideTitle();
         setBackgroundColor(Color.TRANSPARENT);
         setFullBackgroundColor(Color.TRANSPARENT);
+
+
+    }
+
+
+
+    public void setBackgroundColor(int color){
+
+        CardView cardView = (CardView) findViewById(R.id.card);
+        cardView.setCardBackgroundColor(color);
+
 
     }
 

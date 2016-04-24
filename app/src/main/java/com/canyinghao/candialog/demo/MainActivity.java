@@ -1,6 +1,7 @@
 package com.canyinghao.candialog.demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .setCancelable(true)
+
+                        .setFullBackgroundColor(Color.TRANSPARENT)
                         .setCircularRevealAnimator(CanDialog.CircularRevealStatus.TOP_LEFT)
                         .show();
 

@@ -1,0 +1,11 @@
+<resources>
+
+    <dimen name="dialog_card_radius">3dp</dimen>
+
+    <dimen name="dialog_card_margin">0dp</dimen>
+    <dimen name="dialog_card_elevation">2dp</dimen>
+
+
+
+
+</resources>
