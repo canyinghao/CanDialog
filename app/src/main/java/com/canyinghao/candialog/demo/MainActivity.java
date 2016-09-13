@@ -1,5 +1,6 @@
 package com.canyinghao.candialog.demo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,31 +8,35 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.button1)
+    @BindView(R.id.button1)
     Button button1;
-    @Bind(R.id.button2)
+    @BindView(R.id.button2)
     Button button2;
-    @Bind(R.id.button3)
+    @BindView(R.id.button3)
     Button button3;
-    @Bind(R.id.button4)
+    @BindView(R.id.button4)
     Button button4;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
 
     @Override
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.fab, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6})
+    @OnClick({R.id.fab, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8})
     public void click(View v) {
         switch (v.getId()) {
 
@@ -181,7 +186,61 @@ public class MainActivity extends AppCompatActivity {
             case R.id.button6:
 
 
+                View view = LayoutInflater.from(this).inflate(R.layout.custom_layout, null);
+
+                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+                final TextView et_name = (TextView) view.findViewById(R.id.et_name);
+
+                CanDialog dialog=   new CanDialog.Builder(this)
+                        .setTitle("Dialog Title")
+                        .setView(view)
+                        .setNegativeButton("cancel", true, new CanDialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(CanDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
+
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                                imm.hideSoftInputFromWindow(et_name.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            }
+                        })
+                        .setPositiveButton("sure", true, new CanDialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(CanDialog dialog, int position, CharSequence text, boolean[] checkitems) {
+
+
+                                Toast.makeText(getApplicationContext(), et_name.getText().toString(), Toast.LENGTH_SHORT).show();
+
+
+                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                                imm.hideSoftInputFromWindow(et_name.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+
+                            }
+                        })
+                        .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
+                        .setCancelable(true)
+                        .show();
+
+
+
+
+
+                tv_name.setText("标题");
+
+                break;
+
+            case R.id.button7:
+
+
                 startActivity(new Intent(MainActivity.this, ProgressActivity.class));
+
+                break;
+
+            case R.id.button8:
+
+
+                startActivity(new Intent(MainActivity.this, ButtonActivity.class));
 
                 break;
 
@@ -207,13 +266,13 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
 
-          new   AlertDialog.Builder(this)
-                  .setIcon(R.mipmap.ic_launcher)
-                  .setTitle("Dialog Title")
-                  .setMessage("Dialog Message")
-                  .setNegativeButton("cancel",  null)
-                  .setPositiveButton("sure",  null)
-                  .show();
+            new AlertDialog.Builder(this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle("Dialog Title")
+                    .setMessage("Dialog Message")
+                    .setNegativeButton("cancel", null)
+                    .setPositiveButton("sure", null)
+                    .show();
 
 
             return true;

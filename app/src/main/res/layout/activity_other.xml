@@ -22,6 +22,14 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <com.canyinghao.candialog.MorphButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+        android:layout_gravity="center"
+        app:vc_endDrawable="@drawable/svg_animated_eyeclose2eye"
+        app:vc_startDrawable="@drawable/svg_animated_eye2eyeclose" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

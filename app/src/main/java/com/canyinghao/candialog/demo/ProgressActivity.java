@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.canyinghao.candialog.CanDialog;
+import com.canyinghao.candialog.CanDialogInterface;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -17,9 +19,9 @@ import butterknife.OnClick;
  */
 public class ProgressActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
 
     @Override
@@ -31,28 +33,22 @@ public class ProgressActivity extends AppCompatActivity {
 
         toolbar.setTitle("Progress");
 
-        final CanDialog dialog=   new CanDialog.Builder(this)
-                .setProgress("CD","loading")
+        final CanDialog dialog = new CanDialog.Builder(this)
+                .setProgress("loading")
                 .show();
-
-
-        toolbar.postDelayed(new Runnable() {
+        dialog.setOnKeyListener(new CanDialogInterface.OnKeyListener() {
             @Override
-            public void run() {
-                dialog.dismiss();
-
+            public boolean onKey(CanDialog dialog, int code, KeyEvent event) {
+                return false;
             }
-        }, 5000);
-
-
-
+        });
 
 
     }
 
 
     @OnClick(R.id.fab)
-    public void click(View v){
+    public void click(View v) {
 
         App.showToast("fab");
     }
