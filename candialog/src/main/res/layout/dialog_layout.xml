@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,144 +21,141 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dialog_card_margin"
-    android:animateLayoutChanges="true"
-
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="@dimen/dialog_card_radius"
-    app:cardElevation="@dimen/dialog_card_margin">
+    app:cardElevation="@dimen/dialog_card_elevation">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentPanel"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/topPanel"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/parentPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/title_template"
+            android:id="@+id/topPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingLeft="?attr/dialogPreferredPadding"
-            android:paddingRight="?attr/dialogPreferredPadding"
-            android:paddingTop="@dimen/abc_dialog_padding_top_material">
-
-            <ImageView
-                android:id="@android:id/icon"
-                android:layout_width="32dip"
-                android:layout_height="32dip"
-                android:scaleType="fitCenter"
-                android:src="@null"
-                style="@style/RtlOverlay.Widget.AppCompat.DialogTitle.Icon"/>
-
-            <TextView
-                android:id="@+id/alertTitle"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               />
-
-        </LinearLayout>
-        <!-- If the client uses a customTitle, it will be added here. -->
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/contentPanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:minHeight="48dp">
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false">
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/title_template"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="?attr/dialogPreferredPadding"
+                android:paddingRight="?attr/dialogPreferredPadding"
+                android:paddingTop="@dimen/abc_dialog_padding_top_material">
+
+                <ImageView
+                    android:id="@android:id/icon"
+                    style="@style/RtlOverlay.Widget.AppCompat.DialogTitle.Icon"
+                    android:layout_width="21dip"
+                    android:layout_height="21dip"
+                    android:scaleType="fitCenter"
+                    android:src="@null" />
 
                 <TextView
-                    android:id="@android:id/message"
-                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:id="@+id/alertTitle"
+                    style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="?attr/dialogPreferredPadding"
-                    android:paddingTop="@dimen/abc_dialog_padding_top_material"
-                    android:paddingRight="?attr/dialogPreferredPadding"/>
+                    android:ellipsize="end"
+                    android:singleLine="true" />
 
-                <View
-                    android:id="@+id/textSpacerNoButtons"
-                    android:visibility="gone"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/abc_dialog_padding_top_material"/>
             </LinearLayout>
-        </ScrollView>
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/customPanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:minHeight="48dp">
+            <!-- If the client uses a customTitle, it will be added here. -->
+        </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/custom"
+            android:id="@+id/contentPanel"
             android:layout_width="match_parent"
-            android:paddingLeft="?attr/dialogPreferredPadding"
-            android:paddingRight="?attr/dialogPreferredPadding"
-            android:layout_height="wrap_content"/>
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/buttonPanel"
-        style="?attr/buttonBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="locale"
-        android:orientation="horizontal"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:gravity="bottom">
-
-        <Button
-            android:id="@android:id/button3"
-            style="?attr/buttonBarNeutralButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <android.support.v4.widget.Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="invisible"/>
+            android:minHeight="48dp">
 
-        <Button
-            android:id="@android:id/button2"
-            style="?attr/buttonBarNegativeButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false">
 
-        <Button
-            android:id="@android:id/button1"
-            style="?attr/buttonBarPositiveButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@android:id/message"
+                        style="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="?attr/dialogPreferredPadding"
+                        android:paddingRight="?attr/dialogPreferredPadding"
+                        android:paddingTop="@dimen/abc_dialog_padding_top_material" />
+
+                    <View
+                        android:id="@+id/textSpacerNoButtons"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/abc_dialog_padding_top_material"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </ScrollView>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/customPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="48dp">
+
+            <FrameLayout
+                android:id="@+id/custom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="?attr/dialogPreferredPadding"
+                android:paddingRight="?attr/dialogPreferredPadding" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonPanel"
+            style="?attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layoutDirection="locale"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp">
+
+            <Button
+                android:id="@android:id/button3"
+                style="?attr/buttonBarNeutralButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@android:id/button2"
+                style="?attr/buttonBarNegativeButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@android:id/button1"
+                style="?attr/buttonBarPositiveButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 
-    </android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>

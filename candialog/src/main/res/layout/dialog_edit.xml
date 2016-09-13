@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/eye"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
         android:layout_gravity="right|center_vertical" />
 
 </FrameLayout>

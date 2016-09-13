@@ -1,43 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal">
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    android:orientation="horizontal"
+    android:padding="10dp">
 
 
-        <ProgressBar
-            style="@style/Base.Widget.AppCompat.ProgressBar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center" />
+    <ProgressBar
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center" />
 
-        <TextView
-            android:id="@+id/tv_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:maxLength="10"
-            style="@style/TextAppearance.AppCompat.Caption"
-
-            />
-
-    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_load"
+        style="@style/TextAppearance.AppCompat.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        style="@style/TextAppearance.AppCompat.Caption"
-        android:singleLine="true"
         android:ellipsize="end"
-         />
+        android:singleLine="true" />
 
 
 </LinearLayout>
+

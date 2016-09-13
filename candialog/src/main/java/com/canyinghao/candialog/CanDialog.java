@@ -1,7 +1,6 @@
 package com.canyinghao.candialog;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -41,20 +40,20 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.canyinghao.cananimation.CanAnimation;
+import com.canyinghao.candialog.vector.ResourcesCompat;
+import com.canyinghao.candialog.vector.Tintable;
 import com.canyinghao.caneffect.ViewAnimationUtils;
-import com.wnafee.vector.compat.ResourcesCompat;
-import com.wnafee.vector.compat.Tintable;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+
 
 
 /**
  * Copyright 2016 canyinghao
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
- *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -173,7 +172,6 @@ public final class CanDialog extends FrameLayout {
     };
 
 
-
     private CanDialog(Activity context) {
         this(context, null);
     }
@@ -194,7 +192,10 @@ public final class CanDialog extends FrameLayout {
     private void onCrate() {
 
         mDialog = this;
+
         LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, this);
+
+
 
 
         setOnClickListener(null);
@@ -634,7 +635,7 @@ public final class CanDialog extends FrameLayout {
         if (isPwd) {
             eye.setVisibility(View.VISIBLE);
 
-            final Drawable eyeClose = ResourcesCompat.getDrawable(mContext, R.drawable.svg_eye);
+            final Drawable eyeClose = ResourcesCompat.getDrawable(mContext, R.drawable.svg_animated_eye2eyeclose);
             if (eyeColor != 0) {
                 applyTint(eyeClose, eyeColor);
             }
@@ -735,18 +736,18 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置加载的dialog
      *
-     * @param centerText
+     *
      * @param loadText
      */
-    public void setProgress(String centerText, String loadText) {
+    public void setProgress(String loadText) {
 
         setType(DIALOG_PROGRESS);
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_progress, null);
 
-        TextView tvCenter = (TextView) view.findViewById(R.id.tv_center);
+
         TextView tv_load = (TextView) view.findViewById(R.id.tv_load);
-        tvCenter.setText(centerText);
+
         tv_load.setText(loadText);
         showListOrEditView(view);
 
@@ -755,15 +756,15 @@ public final class CanDialog extends FrameLayout {
         hideTitle();
 
 
-       CardView cardView = (CardView) findViewById(R.id.card);
-        cardView.setCardBackgroundColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT>=21){
-            cardView.setElevation(0);
-        }
+        CardView cardView = (CardView) findViewById(R.id.card);
+        FrameLayout.LayoutParams  params= (LayoutParams) cardView.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-        FrameLayout.LayoutParams  params = (LayoutParams) cardView.getLayoutParams();
-        params.setMargins(0,0,0,0);
+        params.gravity=Gravity.CENTER;
+
         cardView.setLayoutParams(params);
+
         setFullBackgroundColor(Color.TRANSPARENT);
 
     }
@@ -787,8 +788,7 @@ public final class CanDialog extends FrameLayout {
     }
 
 
-
-    public void setBackgroundColor(int color){
+    public void setBackgroundColor(int color) {
 
         CardView cardView = (CardView) findViewById(R.id.card);
         cardView.setCardBackgroundColor(color);
@@ -1095,10 +1095,33 @@ public final class CanDialog extends FrameLayout {
 
                                 int[] point = getCircularPoint(status);
 
-                                final Animator animator = ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], 0, radius);
-                                animator.setDuration(1000);
-                                animator.addListener(animatorListener);
-                                animator.start();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    android.animation.Animator animator = android.view.ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], 0, radius);
+                                    animator.setDuration(1000);
+                                    animator.addListener(new android.animation.AnimatorListenerAdapter() {
+                                        @Override
+                                        public void onAnimationCancel(android.animation.Animator animation) {
+                                            super.onAnimationCancel(animation);
+                                            isAnimatorPlaying = false;
+                                        }
+
+                                        @Override
+                                        public void onAnimationEnd(android.animation.Animator animation) {
+                                            super.onAnimationEnd(animation);
+                                            isAnimatorPlaying = false;
+                                        }
+                                    });
+                                    animator.start();
+
+
+                                } else {
+                                    final Animator animator = ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], 0, radius);
+                                    animator.setDuration(1000);
+                                    animator.addListener(animatorListener);
+                                    animator.start();
+
+                                }
+
                                 mContentPanel.setTag("");
                             }
 
@@ -1114,15 +1137,40 @@ public final class CanDialog extends FrameLayout {
 
                     int[] point = getCircularPoint(status);
 
-                    final Animator animator = ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], radius, 0);
-                    animator.setDuration(1000);
-                    animator.addListener(animatorListener);
-                    CanAnimation.animationSequence(animator, CanAnimation.run(new Runnable() {
-                        @Override
-                        public void run() {
-                            dismissAll();
-                        }
-                    })).start();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        android.animation.Animator animator = android.view.ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], radius, 0);
+                        animator.setDuration(1000);
+                        animator.addListener(new android.animation.AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationCancel(android.animation.Animator animation) {
+                                super.onAnimationCancel(animation);
+                                isAnimatorPlaying = false;
+                            }
+
+                            @Override
+                            public void onAnimationEnd(android.animation.Animator animation) {
+                                super.onAnimationEnd(animation);
+                                isAnimatorPlaying = false;
+                                dismissAll();
+                            }
+                        });
+                        animator.start();
+
+                    } else {
+                        final Animator animator = ViewAnimationUtils.createCircularReveal(mDialog, point[0], point[1], radius, 0);
+                        animator.setDuration(1000);
+                        animator.addListener(animatorListener);
+                        CanAnimation.animationSequence(animator, CanAnimation.run(new Runnable() {
+                            @Override
+                            public void run() {
+                                dismissAll();
+                            }
+                        })).start();
+
+                    }
+
+
 
 
                 }
@@ -1345,7 +1393,6 @@ public final class CanDialog extends FrameLayout {
 
     /**
      * 设置icon的类型
-     *
      */
     public void setIconType(byte type, int color) {
 
@@ -1355,17 +1402,17 @@ public final class CanDialog extends FrameLayout {
         switch (mIconType) {
             case ICON_SUCCESS:
 
-                drawableId = R.drawable.svg_success;
+                drawableId = R.xml.svg_success;
 
                 break;
             case ICON_DANGER:
-                drawableId = R.drawable.svg_danger;
+                drawableId = R.xml.svg_danger;
                 break;
             case ICON_INFO:
-                drawableId = R.drawable.svg_info;
+                drawableId = R.xml.svg_info;
                 break;
             case ICON_WARNING:
-                drawableId = R.drawable.svg_warning;
+                drawableId = R.xml.svg_warning;
                 break;
             default:
 
@@ -1374,6 +1421,7 @@ public final class CanDialog extends FrameLayout {
 
         if (drawableId != 0) {
             Drawable drawable = ResourcesCompat.getDrawable(mContext, drawableId);
+
 
             setIconDrawable(drawable, color);
 
@@ -1397,7 +1445,7 @@ public final class CanDialog extends FrameLayout {
         if (color != 0) {
             applyTint(drawable, color);
         }
-        int dp_20 = InputUtils.dp2px(mContext, 20);
+        int dp_20 = InputUtils.dp2px(mContext, 21);
 
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIcon.getLayoutParams();
         params.height = dp_20;
@@ -1614,9 +1662,9 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setProgress(String centerText, String loadText) {
+        public Builder setProgress(String loadText) {
 
-            mDialog.setProgress(centerText, loadText);
+            mDialog.setProgress( loadText);
 
 
             return this;

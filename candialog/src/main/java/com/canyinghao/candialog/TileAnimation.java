@@ -1,6 +1,5 @@
 package com.canyinghao.candialog;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +17,7 @@ import android.widget.ImageView;
 
 import com.canyinghao.cananimation.CanAnimation;
 import com.canyinghao.cananimation.CanObjectAnimator;
+import com.nineoldandroids.animation.Animator;
 
 import static com.canyinghao.cananimation.CanAnimation.animationSequence;
 import static com.canyinghao.cananimation.CanAnimation.animationTogether;
