@@ -47,7 +47,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 
 
-
 /**
  * Copyright 2016 canyinghao
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,31 +62,31 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 public final class CanDialog extends FrameLayout {
 
     //  dialog类型
-    public static final byte DIALOG_MSG = 0;
-    public static final byte DIALOG_LIST_ITEM = 1;
-    public static final byte DIALOG_SINGLE_CHOICE = 2;
-    public static final byte DIALOG_MULTI_CHOICE = 3;
-    public static final byte DIALOG_EDIT = 4;
-    public static final byte DIALOG_PROGRESS = 5;
-    public static final byte DIALOG_CUSTOM = 6;
+    public static final int DIALOG_MSG = 0;
+    public static final int DIALOG_LIST_ITEM = 1;
+    public static final int DIALOG_SINGLE_CHOICE = 2;
+    public static final int DIALOG_MULTI_CHOICE = 3;
+    public static final int DIALOG_EDIT = 4;
+    public static final int DIALOG_PROGRESS = 5;
+    public static final int DIALOG_CUSTOM = 6;
 
     //  svg图标类型
-    public static final byte ICON_SUCCESS = 11;
-    public static final byte ICON_DANGER = 12;
-    public static final byte ICON_INFO = 13;
-    public static final byte ICON_WARNING = 14;
+    public static final int ICON_SUCCESS = 11;
+    public static final int ICON_DANGER = 12;
+    public static final int ICON_INFO = 13;
+    public static final int ICON_WARNING = 14;
 
 
     //  svg图标动画类型
-    public static final byte ANIM_INFO_SUCCESS = 21;
-    public static final byte ANIM_INFO_DANGER = 22;
-    public static final byte ANIM_INFO_WARNING = 23;
+    public static final int ANIM_INFO_SUCCESS = 21;
+    public static final int ANIM_INFO_DANGER = 22;
+    public static final int ANIM_INFO_WARNING = 23;
 
 
     //  dialog当前类型
-    private byte mType;
+    private int mType;
     //  svg图标当前类型
-    private byte mIconType;
+    private int mIconType;
     //  多选时存储选择的状态
     private int checkedItem;
     //  单选时存储选中的状态
@@ -196,8 +195,6 @@ public final class CanDialog extends FrameLayout {
         LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, this);
 
 
-
-
         setOnClickListener(null);
 
 
@@ -236,7 +233,7 @@ public final class CanDialog extends FrameLayout {
     }
 
 
-    private void setType(byte type) {
+    private void setType(int type) {
 
         this.mType = type;
 
@@ -310,10 +307,10 @@ public final class CanDialog extends FrameLayout {
     /**
      * button的点击事件可返回点击item的position，text，单选中的position，多选的选择状态等。
      *
-     * @param button
-     * @param text
-     * @param dismiss
-     * @param listener
+     * @param button Button
+     * @param text CharSequence
+     * @param dismiss boolean
+     * @param listener CanDialogInterface
      */
     private void setButton(Button button, CharSequence text, final boolean dismiss, final CanDialogInterface.OnClickListener listener) {
         mButtonPanel.setVisibility(View.VISIBLE);
@@ -407,7 +404,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置是否可取消
      *
-     * @param cancelable
+     * @param cancelable boolean
      */
     public void setCancelable(boolean cancelable) {
 
@@ -418,7 +415,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 自定义Title
      *
-     * @param customTitleView
+     * @param customTitleView View
      */
     public void setCustomTitle(View customTitleView) {
 
@@ -459,13 +456,15 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置自定义view
      *
-     * @param customView
+     * @param customView View
      */
     public void setView(View customView) {
 
         setType(DIALOG_CUSTOM);
         mCustomPanel.setVisibility(View.VISIBLE);
         mContentPanel.setVisibility(View.GONE);
+        mTopPanel.setVisibility(View.GONE);
+
         mCustom.addView(customView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
@@ -619,10 +618,10 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置成输入框dialog
      *
-     * @param hintText
-     * @param isPwd
-     * @param minLength
-     * @param eyeColor
+     * @param hintText String
+     * @param isPwd boolean
+     * @param minLength int
+     * @param eyeColor int
      */
     public void setEditDialog(String hintText, boolean isPwd, final int minLength, final int eyeColor) {
 
@@ -736,8 +735,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置加载的dialog
      *
-     *
-     * @param loadText
+     * @param loadText String
      */
     public void setProgress(String loadText) {
 
@@ -757,11 +755,11 @@ public final class CanDialog extends FrameLayout {
 
 
         CardView cardView = (CardView) findViewById(R.id.card);
-        FrameLayout.LayoutParams  params= (LayoutParams) cardView.getLayoutParams();
+        FrameLayout.LayoutParams params = (LayoutParams) cardView.getLayoutParams();
         params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-        params.gravity=Gravity.CENTER;
+        params.gravity = Gravity.CENTER;
 
         cardView.setLayoutParams(params);
 
@@ -772,7 +770,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置自定义加载的dialog
      *
-     * @param customView
+     * @param customView View
      */
     public void setProgressCustomView(View customView) {
 
@@ -817,7 +815,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 如果是list、单选、多选、输入框、加载时隐藏默认的msg栏
      *
-     * @param view
+     * @param view View
      */
     private void showListOrEditView(View view) {
 
@@ -913,7 +911,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 是否显示中
      *
-     * @return
+     * @return boolean
      */
     public boolean isShow() {
 
@@ -940,7 +938,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 创建animLayout层
      *
-     * @return
+     * @return FrameLayout
      */
     private FrameLayout createAnimLayout() {
         ViewGroup rootView = (ViewGroup) mContext.getWindow().getDecorView();
@@ -1060,9 +1058,9 @@ public final class CanDialog extends FrameLayout {
     /**
      * 获取CircularReveal动画
      *
-     * @param isShow
-     * @param status
-     * @return
+     * @param isShow boolean
+     * @param status CircularRevealStatus
+     * @return Animator
      */
     private Animator getCircularRevealAnimator(final boolean isShow, final CircularRevealStatus status) {
 
@@ -1171,8 +1169,6 @@ public final class CanDialog extends FrameLayout {
                     }
 
 
-
-
                 }
             }
         });
@@ -1183,7 +1179,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 获取CircularReveal动画半径
      *
-     * @return
+     * @return int
      */
     private int getCircularRadius() {
         int h = getMeasuredHeight();
@@ -1199,8 +1195,8 @@ public final class CanDialog extends FrameLayout {
     /**
      * 获取CircularReveal动画开始点
      *
-     * @param status
-     * @return
+     * @param status CircularRevealStatus
+     * @return int
      */
     private int[] getCircularPoint(CircularRevealStatus status) {
         int h = getMeasuredHeight();
@@ -1236,8 +1232,8 @@ public final class CanDialog extends FrameLayout {
     /**
      * 磁块动画
      *
-     * @param isShow
-     * @return
+     * @param isShow boolean
+     * @return Animator
      */
     private Animator getTileAnimator(final boolean isShow) {
 
@@ -1321,10 +1317,10 @@ public final class CanDialog extends FrameLayout {
      * dialog改变成msg类型，并播放icon的动画
      * 自有ICON_INFO类型可以改变成其它类型
      *
-     * @param animType
-     * @param message
+     * @param animType int
+     * @param message String
      */
-    public void setAnimationMessage(@IntRange(from = ANIM_INFO_SUCCESS, to = ANIM_INFO_WARNING) byte animType, String message) {
+    public void setAnimationMessage(@IntRange(from = ANIM_INFO_SUCCESS, to = ANIM_INFO_WARNING) int animType, String message) {
 
         setMessage(message);
 
@@ -1374,8 +1370,8 @@ public final class CanDialog extends FrameLayout {
     /**
      * 播放svg动画
      *
-     * @param drawable
-     * @return
+     * @param drawable Drawable
+     * @return boolean
      */
     private boolean beginAnimation(Drawable drawable) {
         if (drawable != null && drawable instanceof Animatable) {
@@ -1387,14 +1383,14 @@ public final class CanDialog extends FrameLayout {
         return false;
     }
 
-    public void setIconType(byte type) {
+    public void setIconType(int type) {
         setIconType(type, 0);
     }
 
     /**
      * 设置icon的类型
      */
-    public void setIconType(byte type, int color) {
+    public void setIconType(int type, int color) {
 
         this.mIconType = type;
 
@@ -1438,8 +1434,8 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置icon的drawable和颜色
      *
-     * @param drawable
-     * @param color
+     * @param drawable Drawable
+     * @param color int
      */
     private void setIconDrawable(Drawable drawable, int color) {
         if (color != 0) {
@@ -1459,8 +1455,8 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置svg图标颜色
      *
-     * @param d
-     * @param color
+     * @param d Drawable
+     * @param color int
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void applyTint(Drawable d, int color) {
@@ -1664,7 +1660,7 @@ public final class CanDialog extends FrameLayout {
 
         public Builder setProgress(String loadText) {
 
-            mDialog.setProgress( loadText);
+            mDialog.setProgress(loadText);
 
 
             return this;
@@ -1690,13 +1686,13 @@ public final class CanDialog extends FrameLayout {
         }
 
 
-        public Builder setIconType(@IntRange(from = ICON_SUCCESS, to = ICON_WARNING) byte type) {
+        public Builder setIconType(@IntRange(from = ICON_SUCCESS, to = ICON_WARNING) int type) {
 
             mDialog.setIconType(type);
             return this;
         }
 
-        public Builder setIconType(@IntRange(from = ICON_SUCCESS, to = ICON_WARNING) byte type, int color) {
+        public Builder setIconType(@IntRange(from = ICON_SUCCESS, to = ICON_WARNING) int type, int color) {
 
             mDialog.setIconType(type, color);
             return this;
