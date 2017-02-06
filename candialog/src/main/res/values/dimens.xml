@@ -4,6 +4,8 @@
 
     <dimen name="dialog_card_margin">0dp</dimen>
     <dimen name="dialog_card_elevation">2dp</dimen>
+    <dimen name="dialog_list_padding_vertical_material">8dp</dimen>
+    <dimen name="dialog_padding_top_material">18dp</dimen>
 
 
 </resources>

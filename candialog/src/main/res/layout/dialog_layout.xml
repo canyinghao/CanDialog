@@ -92,12 +92,12 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="?attr/dialogPreferredPadding"
                         android:paddingRight="?attr/dialogPreferredPadding"
-                        android:paddingTop="@dimen/abc_dialog_padding_top_material" />
+                        android:paddingTop="@dimen/dialog_padding_top_material" />
 
                     <View
                         android:id="@+id/textSpacerNoButtons"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/abc_dialog_padding_top_material"
+                        android:layout_height="@dimen/dialog_padding_top_material"
                         android:visibility="gone" />
                 </LinearLayout>
             </ScrollView>
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:layoutDirection="locale"
+
             android:orientation="horizontal"
             android:paddingBottom="8dp"
             android:paddingLeft="12dp"
