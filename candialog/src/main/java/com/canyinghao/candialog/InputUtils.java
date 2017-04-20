@@ -41,7 +41,12 @@ public class InputUtils {
         mChildOfContent.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     public void onGlobalLayout() {
-                        possiblyResizeChildOfContent();
+                        try{
+                            possiblyResizeChildOfContent();
+                        }catch (Throwable e){
+                            e.printStackTrace();
+                        }
+
                     }
                 });
         frameLayoutParams = mChildOfContent
@@ -49,6 +54,7 @@ public class InputUtils {
     }
 
     private void possiblyResizeChildOfContent() {
+
         int usableHeightNow = computeUsableHeight();
         if (usableHeightNow != usableHeightPrevious) {
             int usableHeightSansKeyboard = mChildOfContent.getRootView()
@@ -82,6 +88,7 @@ public class InputUtils {
     }
 
     private int computeUsableHeight() {
+
         Rect r = new Rect();
         mChildOfContent.getWindowVisibleDisplayFrame(r);
         return (r.bottom - r.top);

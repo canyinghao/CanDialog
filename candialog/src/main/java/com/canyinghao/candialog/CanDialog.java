@@ -134,6 +134,7 @@ public final class CanDialog extends FrameLayout {
     //    消失动画
     private Animator mAnimatorEnd;
 
+    private boolean isInput;
     //  用来监听view是否测量完毕
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
@@ -257,6 +258,14 @@ public final class CanDialog extends FrameLayout {
     }
 
 
+    public void setIsInput() {
+
+        if (!isInput && animLayout != null) {
+            isInput = true;
+            InputUtils.assist(animLayout);
+        }
+    }
+
     public void setIcon(int resId) {
 
         mIcon.setVisibility(View.VISIBLE);
@@ -307,9 +316,9 @@ public final class CanDialog extends FrameLayout {
     /**
      * button的点击事件可返回点击item的position，text，单选中的position，多选的选择状态等。
      *
-     * @param button Button
-     * @param text CharSequence
-     * @param dismiss boolean
+     * @param button   Button
+     * @param text     CharSequence
+     * @param dismiss  boolean
      * @param listener CanDialogInterface
      */
     private void setButton(Button button, CharSequence text, final boolean dismiss, final CanDialogInterface.OnClickListener listener) {
@@ -618,14 +627,15 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置成输入框dialog
      *
-     * @param hintText String
-     * @param isPwd boolean
+     * @param hintText  String
+     * @param isPwd     boolean
      * @param minLength int
-     * @param eyeColor int
+     * @param eyeColor  int
      */
     public void setEditDialog(String hintText, boolean isPwd, final int minLength, final int eyeColor) {
 
         setType(DIALOG_EDIT);
+        setIsInput();
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_edit, null);
 
         final EditText etPwd = (EditText) view.findViewById(R.id.et_pwd);
@@ -760,7 +770,7 @@ public final class CanDialog extends FrameLayout {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
         params.gravity = Gravity.CENTER;
-
+        cardView.setRadius(InputUtils.dp2px(getContext(),3));
         cardView.setLayoutParams(params);
 
         setFullBackgroundColor(Color.TRANSPARENT);
@@ -1318,7 +1328,7 @@ public final class CanDialog extends FrameLayout {
      * 自有ICON_INFO类型可以改变成其它类型
      *
      * @param animType int
-     * @param message String
+     * @param message  String
      */
     public void setAnimationMessage(@IntRange(from = ANIM_INFO_SUCCESS, to = ANIM_INFO_WARNING) int animType, String message) {
 
@@ -1435,7 +1445,7 @@ public final class CanDialog extends FrameLayout {
      * 设置icon的drawable和颜色
      *
      * @param drawable Drawable
-     * @param color int
+     * @param color    int
      */
     private void setIconDrawable(Drawable drawable, int color) {
         if (color != 0) {
@@ -1455,7 +1465,7 @@ public final class CanDialog extends FrameLayout {
     /**
      * 设置svg图标颜色
      *
-     * @param d Drawable
+     * @param d     Drawable
      * @param color int
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -1511,6 +1521,12 @@ public final class CanDialog extends FrameLayout {
 
         public Builder setIcon(Drawable icon) {
             mDialog.setIcon(icon);
+
+            return this;
+        }
+
+        public Builder setIsInput() {
+            mDialog.setIsInput();
 
             return this;
         }

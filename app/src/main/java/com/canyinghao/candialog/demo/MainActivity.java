@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 CanDialog dialog=   new CanDialog.Builder(this)
                         .setTitle("Dialog Title")
                         .setView(view)
+                        .setIsInput()
                         .setNegativeButton("cancel", true, new CanDialogInterface.OnClickListener() {
                             @Override
                             public void onClick(CanDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
