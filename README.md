@@ -4,7 +4,7 @@
  ![](./pic/CanDialog.gif) 
  
  
-##添加依赖
+## 添加依赖
 ```JAVA
 compile 'com.canyinghao:candialog:1.0.6'
 ```
