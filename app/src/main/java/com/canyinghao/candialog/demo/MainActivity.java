@@ -1,6 +1,5 @@
 package com.canyinghao.candialog.demo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,15 +7,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 
@@ -59,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 new CanDialog.Builder(this)
+                        .setSystemDialog(true)
                         .setIconType(CanDialog.ICON_WARNING)
                         .setTitle("Dialog Title")
                         .setMessage("Dialog Message")
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                         .setItems(new String[]{"item0", "item1", "item2"}, new CanDialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(CanDialog dialog, int position, CharSequence text, boolean[] checkitems) {
+                            public void onClick(CanBaseDialog dialog, int position, CharSequence text, boolean[] checkitems) {
                                 App.showToast(text.toString());
                                 dialog.dismiss();
                             }
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle("Dialog Title")
                         .setSingleChoiceItems(new String[]{"item0", "item1", "item2"}, 1, new CanDialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(CanDialog dialog, int position, CharSequence text, boolean[] checkitems) {
+                            public void onClick(CanBaseDialog dialog, int position, CharSequence text, boolean[] checkitems) {
 
                                 App.showToast(text.toString());
 
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("cancel", true, null)
                         .setPositiveButton("sure", true, new CanDialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(CanDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
+                            public void onClick(CanBaseDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
                                 App.showToast("select " + checkItem);
 
                             }
@@ -130,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle("Dialog Title")
                         .setMultiChoiceItems(new String[]{"item0", "item1", "item2"}, new boolean[]{false, false, false}, new CanDialogInterface.OnMultiChoiceClickListener() {
                             @Override
-                            public void onClick(CanDialog dialog, int position, boolean flag) {
+                            public void onClick(CanBaseDialog dialog, int position, boolean flag) {
 
                                 App.showToast("item" + position + flag);
 
@@ -140,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("cancel", true, null)
                         .setPositiveButton("sure", true, new CanDialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(CanDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
+                            public void onClick(CanBaseDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
 
 
                                 String msg = "";
@@ -167,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("cancel", true, null)
                         .setPositiveButton("sure", false, new CanDialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(CanDialog dialog, int position, CharSequence text, boolean[] checkitems) {
+                            public void onClick(CanBaseDialog dialog, int position, CharSequence text, boolean[] checkitems) {
 
 
                                 dialog.setAnimationMessage(CanDialog.ANIM_INFO_SUCCESS, "Password is " + text.toString());
@@ -185,49 +182,50 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.button6:
 
+                new CustomDialog(this).setLeftRightMargin(0).setDialogHeight(500).setDialogWidth(500).show();
 
-                View view = LayoutInflater.from(this).inflate(R.layout.custom_layout, null);
-
-                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-                final TextView et_name = (TextView) view.findViewById(R.id.et_name);
-
-                CanDialog dialog=   new CanDialog.Builder(this)
-                        .setTitle("Dialog Title")
-                        .setView(view)
-                        .setIsInput()
-                        .setNegativeButton("cancel", true, new CanDialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(CanDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
-
-                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                                imm.hideSoftInputFromWindow(et_name.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                            }
-                        })
-                        .setPositiveButton("sure", true, new CanDialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(CanDialog dialog, int position, CharSequence text, boolean[] checkitems) {
-
-
-                                Toast.makeText(getApplicationContext(), et_name.getText().toString(), Toast.LENGTH_SHORT).show();
-
-
-                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                                imm.hideSoftInputFromWindow(et_name.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
-
-                            }
-                        })
-                        .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
-                        .setCancelable(true)
-                        .show();
-
-
-
-
-
-                tv_name.setText("标题");
+//                View view = LayoutInflater.from(this).inflate(R.layout.custom_layout, null);
+//
+//                TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+//                final TextView et_name = (TextView) view.findViewById(R.id.et_name);
+//
+//                CanDialog dialog=   new CanDialog.Builder(this)
+//                        .setTitle("Dialog Title")
+//                        .setView(view)
+//                        .setIsInput()
+//                        .setNegativeButton("cancel", true, new CanDialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(CanBaseDialog dialog, int checkItem, CharSequence text, boolean[] checkItems) {
+//
+//                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//
+//                                imm.hideSoftInputFromWindow(et_name.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//                            }
+//                        })
+//                        .setPositiveButton("sure", true, new CanDialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(CanBaseDialog dialog, int position, CharSequence text, boolean[] checkitems) {
+//
+//
+//                                Toast.makeText(getApplicationContext(), et_name.getText().toString(), Toast.LENGTH_SHORT).show();
+//
+//
+//                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//
+//                                imm.hideSoftInputFromWindow(et_name.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//
+//
+//                            }
+//                        })
+//                        .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
+//                        .setCancelable(true)
+//                        .show();
+//
+//
+//
+//
+//
+//                tv_name.setText("标题");
 
                 break;
 

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by yangjian on 16/3/3.
+ * Created by canyinghao on 16/3/3.
  */
 public class ProgressActivity extends AppCompatActivity {
 
@@ -38,7 +39,8 @@ public class ProgressActivity extends AppCompatActivity {
                 .show();
         dialog.setOnKeyListener(new CanDialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(CanDialog dialog, int code, KeyEvent event) {
+            public boolean onKey(CanBaseDialog dialog, int code, KeyEvent event) {
+                dialog.dismiss();
                 return false;
             }
         });

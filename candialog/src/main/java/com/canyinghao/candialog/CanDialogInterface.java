@@ -20,23 +20,23 @@ public interface CanDialogInterface {
 
 
     public interface OnKeyListener {
-        boolean onKey(CanDialog dialog, int code, KeyEvent event);
+        boolean onKey(CanBaseDialog dialog, int code, KeyEvent event);
     }
 
     public interface OnMultiChoiceClickListener {
-        void onClick(CanDialog dialog, int position, boolean flag);
+        void onClick(CanBaseDialog dialog, int position, boolean flag);
     }
 
     public interface OnClickListener {
-        void onClick(CanDialog dialog, int checkItem,CharSequence text,boolean[] checkItems);
+        void onClick(CanBaseDialog dialog, int checkItem,CharSequence text,boolean[] checkItems);
     }
 
     public interface OnShowListener {
-        void onShow(CanDialog dialog);
+        void onShow(CanBaseDialog dialog);
     }
 
     public interface OnDismissListener {
-        void onDismiss(CanDialog dialog);
+        void onDismiss(CanBaseDialog dialog);
     }
 
 

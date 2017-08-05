@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by yangjian on 16/9/13.
+ * Created by canyinghao on 16/9/13.
  */
 public class ButtonActivity extends AppCompatActivity {
 

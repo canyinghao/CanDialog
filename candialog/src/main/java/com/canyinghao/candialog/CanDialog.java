@@ -22,7 +22,6 @@ import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,6 @@ import com.canyinghao.candialog.vector.ResourcesCompat;
 import com.canyinghao.candialog.vector.Tintable;
 import com.canyinghao.caneffect.ViewAnimationUtils;
 import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
 
 
 /**
@@ -59,137 +57,25 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public final class CanDialog extends FrameLayout {
+public final class CanDialog extends CanBaseDialog {
 
-    //  dialog类型
-    public static final int DIALOG_MSG = 0;
-    public static final int DIALOG_LIST_ITEM = 1;
-    public static final int DIALOG_SINGLE_CHOICE = 2;
-    public static final int DIALOG_MULTI_CHOICE = 3;
-    public static final int DIALOG_EDIT = 4;
-    public static final int DIALOG_PROGRESS = 5;
-    public static final int DIALOG_CUSTOM = 6;
-
-    //  svg图标类型
-    public static final int ICON_SUCCESS = 11;
-    public static final int ICON_DANGER = 12;
-    public static final int ICON_INFO = 13;
-    public static final int ICON_WARNING = 14;
-
-
-    //  svg图标动画类型
-    public static final int ANIM_INFO_SUCCESS = 21;
-    public static final int ANIM_INFO_DANGER = 22;
-    public static final int ANIM_INFO_WARNING = 23;
-
-
-    //  dialog当前类型
-    private int mType;
-    //  svg图标当前类型
-    private int mIconType;
-    //  多选时存储选择的状态
-    private int checkedItem;
-    //  单选时存储选中的状态
-    private boolean[] checkedItems;
-
-    private Button mButtonPositive;
-
-    private Button mButtonNegative;
-
-    private Button mButtonNeutral;
-
-
-    private LinearLayout mTopPanel;
-    private FrameLayout mContentPanel;
-    private FrameLayout mCustomPanel;
-    private LinearLayout mButtonPanel;
-    private TextView mAlertTitle;
-    private ImageView mIcon;
-    private ScrollView mScrollView;
-    private TextView mMessage;
-    private View textSpacerNoButtons;
-
-    private FrameLayout mCustom;
-
-    //  添加到getWindow().getDecorView()的布局，用以显示黑色半透明背景，添加此dialog等
-    private FrameLayout animLayout;
-
-    //  dialog所在的activity
-    private Activity mContext;
-    //  dialog自己
-    private CanDialog mDialog;
-    //  是否可取消，为false时，点击back键也不能取消
-    private boolean mCancelable = true;
-    //  animLayout的颜色
-    private int mFullBackgroundColor;
-    //    是否设置过animLayout的背景
-    private boolean mHaveFullBackgroundColor;
-    //  animLayout的背景
-    private int mFullBackgroundResid;
-    //  是否处于显示状态
-    private boolean isShowing;
-
-    //   显示动画
-    private Animator mAnimatorStart;
-    //    消失动画
-    private Animator mAnimatorEnd;
-
-    private boolean isInput;
-    //  用来监听view是否测量完毕
-    private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
-
-    //   消失时监听
-    private CanDialogInterface.OnDismissListener mOnDismissListener;
-    //    显示时监听
-    private CanDialogInterface.OnShowListener mOnShowListener;
-    //    按键监听
-    private CanDialogInterface.OnKeyListener mOnKeyListener;
-    //    显示或消失动画是否正在播放中
-    private boolean isAnimatorPlaying;
-    //   消失的点击事件
-    private OnClickListener dismissListener = new OnClickListener() {
-        @Override
-        public void onClick(final View view) {
-
-            dismiss();
-
-        }
-    };
-
-    //   显示或消失动画的监听事件
-    private AnimatorListenerAdapter animatorListener = new AnimatorListenerAdapter() {
-        @Override
-        public void onAnimationCancel(Animator animation) {
-            super.onAnimationCancel(animation);
-            isAnimatorPlaying = false;
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            super.onAnimationEnd(animation);
-            isAnimatorPlaying = false;
-        }
-    };
 
 
     private CanDialog(Activity context) {
-        this(context, null);
+        super(context);
     }
 
     private CanDialog(Activity context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
     }
 
     private CanDialog(Activity context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mContext = context;
-        onCrate();
-
 
     }
 
 
-    private void onCrate() {
+    protected void onCrate() {
 
         mDialog = this;
 
@@ -234,37 +120,6 @@ public final class CanDialog extends FrameLayout {
     }
 
 
-    private void setType(int type) {
-
-        this.mType = type;
-
-    }
-
-
-    public void setAnimatorStart(Animator mAnimatorStart) {
-        this.mAnimatorStart = mAnimatorStart;
-    }
-
-    public void setAnimatorStart(Runnable runnable) {
-        this.mAnimatorStart = CanAnimation.run(runnable);
-    }
-
-    public void setAnimatorEnd(Animator mAnimatorEnd) {
-        this.mAnimatorEnd = mAnimatorEnd;
-    }
-
-    public void setAnimatorEnd(Runnable runnable) {
-        this.mAnimatorEnd = CanAnimation.run(runnable);
-    }
-
-
-    public void setIsInput() {
-
-        if (!isInput && animLayout != null) {
-            isInput = true;
-            InputUtils.assist(animLayout);
-        }
-    }
 
     public void setIcon(int resId) {
 
@@ -410,15 +265,7 @@ public final class CanDialog extends FrameLayout {
     }
 
 
-    /**
-     * 设置是否可取消
-     *
-     * @param cancelable boolean
-     */
-    public void setCancelable(boolean cancelable) {
 
-        this.mCancelable = cancelable;
-    }
 
 
     /**
@@ -437,21 +284,6 @@ public final class CanDialog extends FrameLayout {
 
     }
 
-
-    public void setOnDismissListener(CanDialogInterface.OnDismissListener onDismissListener) {
-
-        this.mOnDismissListener = onDismissListener;
-    }
-
-    public void setOnShowListener(CanDialogInterface.OnShowListener onShowListener) {
-
-        this.mOnShowListener = onShowListener;
-    }
-
-    public void setOnKeyListener(CanDialogInterface.OnKeyListener onKeyListener) {
-
-        this.mOnKeyListener = onKeyListener;
-    }
 
 
     public void setView(int layoutResId) {
@@ -612,16 +444,7 @@ public final class CanDialog extends FrameLayout {
 
     }
 
-    public void setFullBackgroundColor(int color) {
-        mHaveFullBackgroundColor = true;
-        this.mFullBackgroundColor = color;
 
-    }
-
-    public void setFullBackgroundResource(int rid) {
-        this.mFullBackgroundResid = rid;
-
-    }
 
 
     /**
@@ -839,94 +662,6 @@ public final class CanDialog extends FrameLayout {
     }
 
 
-    /**
-     * 显示
-     */
-    public void show() {
-
-
-        isShowing = true;
-        if (mButtonPanel.getVisibility() == View.GONE) {
-
-            textSpacerNoButtons.setVisibility(View.VISIBLE);
-        }
-
-
-        FrameLayout layout = createAnimLayout();
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        params.leftMargin = InputUtils.dp2px(mContext, 20);
-        params.rightMargin = InputUtils.dp2px(mContext, 20);
-        layout.addView(this, params);
-
-
-        if (mAnimatorStart != null) {
-
-            try {
-                mAnimatorStart.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-                isAnimatorPlaying = false;
-                setVisibility(View.VISIBLE);
-            }
-
-        }
-        if (mOnShowListener != null) {
-
-            mOnShowListener.onShow(mDialog);
-        }
-
-
-    }
-
-    /**
-     * 取消
-     */
-    public void dismiss() {
-
-
-        if (mAnimatorEnd != null) {
-            try {
-
-                mAnimatorEnd.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-                isAnimatorPlaying = false;
-                dismissAll();
-
-            }
-
-        } else {
-            dismissAll();
-
-        }
-
-
-    }
-
-    /**
-     * 无动画的取消
-     */
-    private void dismissAll() {
-        isShowing = false;
-        if (mOnDismissListener != null) {
-            mOnDismissListener.onDismiss(mDialog);
-        }
-
-
-        removeAnimLayout();
-
-    }
-
-    /**
-     * 是否显示中
-     *
-     * @return boolean
-     */
-    public boolean isShow() {
-
-        return isShowing;
-    }
 
 
     /**
@@ -945,97 +680,10 @@ public final class CanDialog extends FrameLayout {
 
     }
 
-    /**
-     * 创建animLayout层
-     *
-     * @return FrameLayout
-     */
-    private FrameLayout createAnimLayout() {
-        ViewGroup rootView = (ViewGroup) mContext.getWindow().getDecorView();
 
 
-        if (animLayout != null) {
 
 
-            if (mType != DIALOG_PROGRESS) {
-
-                if (mCancelable) {
-                    animLayout.setOnClickListener(dismissListener);
-                } else {
-                    animLayout.setOnClickListener(null);
-                }
-            }
-
-
-            return animLayout;
-
-        }
-        animLayout = new FrameLayout(mContext);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-
-
-        animLayout.setLayoutParams(params);
-        if (mHaveFullBackgroundColor) {
-            animLayout.setBackgroundColor(mFullBackgroundColor);
-        } else if (mFullBackgroundResid != 0) {
-            animLayout.setBackgroundResource(mFullBackgroundResid);
-        } else {
-            animLayout.setBackgroundColor(Color.parseColor("#77000000"));
-        }
-
-
-        if (mType != DIALOG_PROGRESS) {
-
-            if (mCancelable) {
-                animLayout.setOnClickListener(dismissListener);
-            } else {
-                animLayout.setOnClickListener(null);
-            }
-        }
-
-
-        rootView.addView(animLayout);
-
-
-        animLayout.setFocusable(true);
-        animLayout.setFocusableInTouchMode(true);
-        animLayout.requestFocus();
-        animLayout.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-
-                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                    if (mCancelable) {
-                        dismiss();
-                    }
-                }
-
-                if (mOnKeyListener != null) {
-                    return mOnKeyListener.onKey(mDialog, i, keyEvent);
-                }
-                return true;
-            }
-        });
-
-        InputUtils.assist(animLayout);
-        return animLayout;
-    }
-
-
-    /**
-     * 移出animLayout层
-     */
-    private void removeAnimLayout() {
-
-        ViewGroup rootView = (ViewGroup) mContext.getWindow().getDecorView();
-
-        if (animLayout != null) {
-            rootView.removeView(animLayout);
-            animLayout = null;
-        }
-
-    }
 
     private static class CheckedItemAdapter extends ArrayAdapter<CharSequence> {
         public CheckedItemAdapter(Context context, int resource, int textViewResourceId,
@@ -1524,6 +1172,11 @@ public final class CanDialog extends FrameLayout {
 
             return this;
         }
+        public Builder setSystemDialog(boolean systemDialog) {
+            mDialog.setSystemDialog(systemDialog);
+
+            return this;
+        }
 
         public Builder setIsInput() {
             mDialog.setIsInput();
@@ -1721,6 +1374,26 @@ public final class CanDialog extends FrameLayout {
             return this;
         }
 
+        public Builder setLeftRightMargin(int  leftRightMargin) {
+
+            mDialog.setLeftRightMargin(leftRightMargin);
+
+            return this;
+        }
+
+        public Builder setDialogHeight(int  dialogHeight) {
+
+            mDialog.setDialogHeight(dialogHeight);
+
+            return this;
+        }
+
+        public Builder setDialogWidth(int  dialogWidth) {
+
+            mDialog.setDialogWidth(dialogWidth);
+
+            return this;
+        }
 
         public Builder setAnimatorStart(Animator mAnimatorStart) {
             mDialog.setAnimatorStart(mAnimatorStart);
