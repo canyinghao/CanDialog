@@ -5,6 +5,7 @@ import android.app.Dialog;
 
 import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialogInterface;
+import com.canyinghao.candialog.CanManagerDialog;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -36,9 +37,9 @@ public class DialogManager {
                         Dialog dia = (Dialog) currentDialog;
                         dia.show();
 
-                    }else if (currentDialog instanceof CanBaseDialog) {
+                    }else if (currentDialog instanceof CanManagerDialog) {
 
-                        CanBaseDialog canBaseDialog = ((CanBaseDialog) currentDialog);
+                        CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
 
                         canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
 

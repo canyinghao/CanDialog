@@ -27,13 +27,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.canyinghao.cananimation.CanAnimation;
-import com.canyinghao.candialog.manager.DialogManager;
-import com.canyinghao.candialog.manager.DialogManagerInterface;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Copyright 2016 canyinghao
@@ -48,7 +43,7 @@ import java.util.List;
  * limitations under the License.
  */
 
-public abstract class CanBaseDialog extends FrameLayout implements DialogManagerInterface {
+public abstract class CanBaseDialog extends CanManagerDialog  {
 
     //  dialog类型
     public static final int DIALOG_MSG = 0;
@@ -166,8 +161,7 @@ public abstract class CanBaseDialog extends FrameLayout implements DialogManager
     //   消失时监听
     protected CanDialogInterface.OnDismissListener mOnDismissListener;
 
-    //   消失时监听
-    protected List<CanDialogInterface.OnDismissListener> mOnDismissListeners;
+
 
     //    显示时监听
     protected CanDialogInterface.OnShowListener mOnShowListener;
@@ -379,8 +373,9 @@ public abstract class CanBaseDialog extends FrameLayout implements DialogManager
             for(CanDialogInterface.OnDismissListener onDismissListener:mOnDismissListeners){
                 onDismissListener.onDismiss(CanBaseDialog.this);
             }
+            mOnDismissListeners.clear();
         }
-
+        mOnDismissListener = null;
 
 
 
@@ -546,12 +541,6 @@ public abstract class CanBaseDialog extends FrameLayout implements DialogManager
 
         this.mOnDismissListener = onDismissListener;
     }
-    public void addOnDismissListener(CanDialogInterface.OnDismissListener onDismissListener) {
-        if(this.mOnDismissListeners==null){
-            this.mOnDismissListeners = new ArrayList<>();
-        }
-        this.mOnDismissListeners.add(onDismissListener);
-    }
 
     public void setOnShowListener(CanDialogInterface.OnShowListener onShowListener) {
 
@@ -666,13 +655,5 @@ public abstract class CanBaseDialog extends FrameLayout implements DialogManager
     public void setIconType(int type, int color) {}
 
 
-    @Override
-    public void showManager() {
-        DialogManager.show(this);
-    }
 
-    @Override
-    public void dismissManager() {
-        DialogManager.dismiss(this);
-    }
 }
