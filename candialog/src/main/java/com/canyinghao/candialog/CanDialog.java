@@ -77,7 +77,6 @@ public final class CanDialog extends CanBaseDialog {
 
     protected void onCrate() {
 
-        mDialog = this;
 
         LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, this);
 

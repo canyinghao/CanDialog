@@ -105,6 +105,8 @@ public abstract class CanBaseDialog extends FrameLayout {
     //  是否可取消，为false时，点击back键也不能取消
     protected boolean mCancelable = true;
 
+    protected boolean mFocus = true;
+
     //  animLayout的颜色
     protected int mFullBackgroundColor;
     //    是否设置过animLayout的背景
@@ -193,6 +195,7 @@ public abstract class CanBaseDialog extends FrameLayout {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         this.leftRightMargin = InputUtils.dp2px(mContext, 20);
+        mDialog =this;
         onCrate();
     }
 
@@ -207,8 +210,17 @@ public abstract class CanBaseDialog extends FrameLayout {
 
     protected void setContentView(View view) {
 
+        setContentView(view,true);
+    }
+
+    protected void setContentView(View view,boolean mFocus) {
+
         addView(view);
-        setOnClickListener(null);
+        this.mFocus = mFocus;
+        if(mFocus){
+            setOnClickListener(null);
+        }
+
     }
 
     public CanBaseDialog setLeftRightMargin(int leftRightMargin) {
@@ -411,19 +423,22 @@ public abstract class CanBaseDialog extends FrameLayout {
 
         if (mType != DIALOG_PROGRESS) {
 
-            if (mCancelable) {
-                animLayout.setOnClickListener(dismissListener);
-            } else {
-                animLayout.setOnClickListener(null);
+            if(mFocus){
+                if (mCancelable) {
+                    animLayout.setOnClickListener(dismissListener);
+                } else {
+                    animLayout.setOnClickListener(null);
+                }
             }
+
         }
 
 
         rootView.addView(animLayout);
 
 
-        animLayout.setFocusable(true);
-        animLayout.setFocusableInTouchMode(true);
+        animLayout.setFocusable(mFocus);
+        animLayout.setFocusableInTouchMode(mFocus);
         animLayout.requestFocus();
         animLayout.setOnKeyListener(new OnKeyListener() {
             @Override
