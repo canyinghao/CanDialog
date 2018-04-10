@@ -36,7 +36,7 @@ public class DialogManager {
                         Dialog dia = (Dialog) currentDialog;
                         dia.show();
 
-                    } else if (currentDialog instanceof CanBaseDialog) {
+                    }else if (currentDialog instanceof CanBaseDialog) {
 
                         CanBaseDialog canBaseDialog = ((CanBaseDialog) currentDialog);
 
@@ -44,9 +44,7 @@ public class DialogManager {
 
                             @Override
                             public void onDismiss(CanBaseDialog dialog) {
-                                dismiss(dialog);
-                                currentDialog = null;
-                                show(null);
+                                showNext(dialog);
 
                             }
                         });
@@ -68,12 +66,25 @@ public class DialogManager {
 
     }
 
+    public static void showNext(DialogManagerInterface dialog) {
+        dismiss(dialog);
+        currentDialog = null;
+        show(null);
+    }
+
     public static void dismiss(DialogManagerInterface dialog) {
+        if(dialog==null){
+            return;
+        }
         dialogs.remove(dialog);
 
     }
 
     public static void onDestroy() {
+
+        if(dialogs==null||dialogs.isEmpty()){
+            return;
+        }
 
         Queue<DialogManagerInterface> temp = new LinkedList<>();
         temp.addAll(dialogs);
