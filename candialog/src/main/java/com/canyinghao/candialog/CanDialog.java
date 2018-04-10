@@ -1,6 +1,7 @@
 package com.canyinghao.candialog;
 
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -666,6 +667,7 @@ public final class CanDialog extends CanBaseDialog {
     /**
      * 隐藏软键盘
      */
+    @SuppressLint("WrongViewCast")
     private void hideSoftInput() {
 
         if (mType != DIALOG_EDIT) {

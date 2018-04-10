@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
@@ -57,12 +58,41 @@ public class MainActivity extends AppCompatActivity {
                 new CanDialog.Builder(this)
                         .setSystemDialog(true)
                         .setIconType(CanDialog.ICON_WARNING)
-                        .setTitle("Dialog Title")
+                        .setTitle("System Title 1")
                         .setMessage("Dialog Message")
                         .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
                         .setNegativeButton("cancel", true, null)
                         .setPositiveButton("sure", true, null)
-                        .show();
+                        .create()
+                        .showManager();
+
+
+                new CanDialog.Builder(this)
+                        .setIconType(CanDialog.ICON_WARNING)
+                        .setTitle("Dialog Title 2")
+                        .setMessage("Dialog Message")
+                        .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
+                        .setNegativeButton("cancel", true, null)
+                        .setPositiveButton("sure", true, null)
+                        .create()
+                        .showManager();
+
+
+                CanDialog dialog = new CanDialog.Builder(this)
+                        .setIconType(CanDialog.ICON_WARNING)
+                        .setTitle("Dialog Title 3")
+                        .setMessage("Dialog Message")
+                        .setCircularRevealAnimator(CanDialog.CircularRevealStatus.BOTTOM_RIGHT)
+                        .setNegativeButton("cancel", true, null)
+                        .setPositiveButton("sure", true, null)
+                        .create();
+                dialog.setOnDismissListener(new CanDialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(CanBaseDialog dialog) {
+                                Toast.makeText(MainActivity.this,"test",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                dialog.showManager();
 
 
                 break;
