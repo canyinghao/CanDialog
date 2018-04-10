@@ -36,7 +36,7 @@ public interface CanDialogInterface {
     }
 
     public interface OnDismissListener {
-        void onDismiss(CanBaseDialog dialog);
+        void onDismiss(CanManagerDialog dialog);
     }
 
 

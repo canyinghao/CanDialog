@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
+import com.canyinghao.candialog.CanManagerDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         .create();
                 dialog.setOnDismissListener(new CanDialogInterface.OnDismissListener() {
                             @Override
-                            public void onDismiss(CanBaseDialog dialog) {
+                            public void onDismiss(CanManagerDialog dialog) {
                                 Toast.makeText(MainActivity.this,"test",Toast.LENGTH_SHORT).show();
                             }
                         });

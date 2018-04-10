@@ -44,7 +44,7 @@ public class DialogManager {
                         canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
 
                             @Override
-                            public void onDismiss(CanBaseDialog dialog) {
+                            public void onDismiss(CanManagerDialog dialog) {
                                 showNext(dialog);
 
                             }

@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
+import com.canyinghao.candialog.CanManagerDialog;
 
 /**
  * Created by canyinghao on 16/9/13.
@@ -55,7 +55,7 @@ public class ButtonActivity extends AppCompatActivity {
                 .create();
         dialog.setOnDismissListener(new CanDialogInterface.OnDismissListener() {
             @Override
-            public void onDismiss(CanBaseDialog dialog) {
+            public void onDismiss(CanManagerDialog dialog) {
                 Toast.makeText(ButtonActivity.this,"test",Toast.LENGTH_SHORT).show();
             }
         });
