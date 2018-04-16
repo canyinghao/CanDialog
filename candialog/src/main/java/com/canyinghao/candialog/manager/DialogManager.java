@@ -28,13 +28,18 @@ public class DialogManager {
 
             if (currentDialog == null) {
                 currentDialog = dialogs.poll();
+
                 if (currentDialog != null) {
 
+                    if(dialogs.contains(currentDialog)){
+                        dialogs.remove(currentDialog);
+                    }
                     currentDialog.showManager();
 
                     if (currentDialog instanceof Dialog) {
 
                         Dialog dia = (Dialog) currentDialog;
+
                         dia.show();
 
                     }else if (currentDialog instanceof CanManagerDialog) {
@@ -77,7 +82,11 @@ public class DialogManager {
         if(dialog==null){
             return;
         }
-        dialogs.remove(dialog);
+
+        if(dialogs.contains(dialog)){
+            dialogs.remove(dialog);
+        }
+
 
     }
 
