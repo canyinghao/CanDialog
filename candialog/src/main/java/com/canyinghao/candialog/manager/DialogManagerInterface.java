@@ -9,6 +9,5 @@ public interface  DialogManagerInterface {
 
       void showManager();
 
-      void dismissManager();
 
 }

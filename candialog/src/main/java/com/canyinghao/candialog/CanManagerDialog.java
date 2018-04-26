@@ -55,8 +55,5 @@ public class CanManagerDialog extends FrameLayout implements DialogManagerInterf
         DialogManager.show(this);
     }
 
-    @Override
-    public void dismissManager() {
-        DialogManager.dismiss(this);
-    }
+
 }
