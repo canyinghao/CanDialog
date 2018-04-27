@@ -17,6 +17,7 @@ import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.CanManagerDialog;
+import com.canyinghao.candialog.manager.DialogManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                 dialog.showManager();
+
+
+                startActivity(new Intent(MainActivity.this,MainActivity.class));
 
 
                 break;
@@ -309,5 +313,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DialogManager.onDestroy(MainActivity.this);
     }
 }

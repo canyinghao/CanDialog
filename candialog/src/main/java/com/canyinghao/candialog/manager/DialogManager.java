@@ -17,8 +17,8 @@ import java.util.Set;
 public class DialogManager {
 
 
-    private static Map<Context, Queue<DialogManagerInterface>> map = new ArrayMap<>();
-    private static Map<Context, DialogManagerInterface> currentMap = new ArrayMap<>();
+    private static final Map<Context, Queue<DialogManagerInterface>> map = new ArrayMap<>();
+    private static final Map<Context, DialogManagerInterface> currentMap = new ArrayMap<>();
 
 
     public static void show(DialogManagerInterface dialog) {
@@ -47,48 +47,58 @@ public class DialogManager {
             for (Context context : set) {
 
                 if (!currentMap.containsKey(context) || currentMap.get(context) == null) {
+
                     Queue<DialogManagerInterface> dialogs = map.get(context);
-                    DialogManagerInterface currentDialog = dialogs.poll();
 
-                    if (currentDialog != null) {
+                    if (dialogs != null && !dialogs.isEmpty()) {
 
-                        currentMap.put(context, currentDialog);
+                        DialogManagerInterface currentDialog = dialogs.poll();
 
-                        if (dialogs.contains(currentDialog)) {
-                            dialogs.remove(currentDialog);
+                        if (currentDialog != null) {
+
+                            currentMap.put(context, currentDialog);
+
+                            if (dialogs.contains(currentDialog)) {
+                                dialogs.remove(currentDialog);
+                            }
+
+                            if (dialogs.isEmpty()) {
+                                map.remove(context);
+                            }
+                            currentDialog.showManager();
+
+                            if (currentDialog instanceof Dialog) {
+
+                                Dialog dia = (Dialog) currentDialog;
+
+                                dia.show();
+
+                            } else if (currentDialog instanceof CanManagerDialog) {
+
+                                CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
+
+                                canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
+
+                                    @Override
+                                    public void onDismiss(CanManagerDialog dialog) {
+                                        showNext(dialog);
+
+                                    }
+                                });
+
+                                canBaseDialog.show();
+
+
+                            }
+
+
                         }
 
-                        if (dialogs.isEmpty()) {
-                            map.remove(context);
-                        }
-                        currentDialog.showManager();
+                    } else {
 
-                        if (currentDialog instanceof Dialog) {
-
-                            Dialog dia = (Dialog) currentDialog;
-
-                            dia.show();
-
-                        } else if (currentDialog instanceof CanManagerDialog) {
-
-                            CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
-
-                            canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
-
-                                @Override
-                                public void onDismiss(CanManagerDialog dialog) {
-                                    showNext(dialog);
-
-                                }
-                            });
-
-                            canBaseDialog.show();
-
-
-                        }
-
-
+                        map.remove(context);
                     }
+
 
                 }
 
@@ -114,11 +124,11 @@ public class DialogManager {
 
         if (map.containsKey(context)) {
             Queue<DialogManagerInterface> dialogs = map.get(context);
-            if (dialogs.contains(dialog)) {
+            if (dialogs != null && dialogs.contains(dialog)) {
                 dialogs.remove(dialog);
             }
 
-            if (dialogs.isEmpty()) {
+            if (dialogs == null || dialogs.isEmpty()) {
                 map.remove(context);
             }
         }
@@ -137,6 +147,8 @@ public class DialogManager {
         if (currentMap.containsKey(context)) {
             currentMap.remove(context);
         }
+
+
 
     }
 
