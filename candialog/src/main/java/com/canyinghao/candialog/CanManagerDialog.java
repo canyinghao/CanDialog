@@ -1,5 +1,6 @@
 package com.canyinghao.candialog;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ public class CanManagerDialog extends FrameLayout implements DialogManagerInterf
 
     //   消失时监听
     protected List<CanDialogInterface.OnDismissListener> mOnDismissListeners;
+
+    protected Activity currentActivity;
 
     public CanManagerDialog(@NonNull Context context) {
         super(context);
@@ -50,9 +53,19 @@ public class CanManagerDialog extends FrameLayout implements DialogManagerInterf
         this.mOnDismissListeners.add(onDismissListener);
     }
 
-    @Override
+
     public void showManager() {
         DialogManager.show(this);
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this.currentActivity;
+    }
+
+
+    public void setActivity(Activity act) {
+        this.currentActivity = act;
     }
 
 

@@ -1,10 +1,10 @@
 package com.canyinghao.candialog.manager;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
-import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.CanManagerDialog;
 
@@ -153,19 +153,9 @@ public class DialogManager {
     }
 
 
-    public static Context getCurrentContext(DialogManagerInterface dialog) {
+    public static Activity getCurrentContext(DialogManagerInterface dialog) {
 
-        Context context = null;
-        if (dialog instanceof Dialog) {
-            context = ((Dialog) dialog).getContext();
-
-        } else if (dialog instanceof CanBaseDialog) {
-
-            context = ((CanBaseDialog) dialog).getContext();
-
-        }
-
-        return context;
+        return dialog.getActivity();
     }
 
     public static Map<Context, DialogManagerInterface> getCurrentMap() {

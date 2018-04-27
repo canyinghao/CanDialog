@@ -196,6 +196,7 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
 
     public CanBaseDialog(@NonNull Activity context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setActivity(context);
         this.mContext = context;
         this.leftRightMargin = InputUtils.dp2px(mContext, 20);
         mDialog =this;
