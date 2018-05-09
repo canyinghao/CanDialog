@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         .create()
                         .showManager();
 
+                new DialogActivityAgent(this,new Intent(this,ProgressActivity.class)).showManager();
 
                 CanDialog dialog = new CanDialog.Builder(this)
                         .setIconType(CanDialog.ICON_WARNING)

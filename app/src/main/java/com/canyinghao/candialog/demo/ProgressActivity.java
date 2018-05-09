@@ -64,6 +64,6 @@ public class ProgressActivity extends AppCompatActivity  {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DialogManager.show(null);
+        DialogManager.activityDestroy();
     }
 }

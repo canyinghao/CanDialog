@@ -21,6 +21,7 @@ public class DialogManager {
     private static final Map<Context, DialogManagerInterface> currentMap = new ArrayMap<>();
 
 
+    private static DialogManagerInterface currentActivityDialog;
 
     public static void show(DialogManagerInterface dialog) {
 
@@ -91,20 +92,10 @@ public class DialogManager {
 
 
                             } else if (currentDialog instanceof DialogActivityAgent) {
-                                DialogActivityAgent canBaseDialog = ((DialogActivityAgent) currentDialog);
-                                canBaseDialog.showActivity();
-                                if (currentMap.containsKey(context)) {
-                                    currentMap.remove(context);
-                                }
-                                if (map.containsKey(context)) {
-                                    dialogs = map.get(context);
-
-                                    if (dialogs != null && dialogs.contains(currentDialog)) {
-                                        dialogs.remove(currentDialog);
-                                    }
-                                    if (dialogs == null || dialogs.isEmpty()) {
-                                        map.remove(context);
-                                    }
+                                if (currentActivityDialog == null) {
+                                    DialogActivityAgent canBaseDialog = ((DialogActivityAgent) currentDialog);
+                                    canBaseDialog.showActivity();
+                                    currentActivityDialog = currentDialog;
                                 }
                             }
 
@@ -181,5 +172,32 @@ public class DialogManager {
 
     public static Map<Context, Queue<DialogManagerInterface>> getMap() {
         return map;
+    }
+
+
+    public static void activityDestroy() {
+
+        if (currentActivityDialog != null) {
+
+            Context context = getCurrentContext(currentActivityDialog);
+            if (currentMap.containsKey(context)) {
+                currentMap.remove(context);
+            }
+            if (map.containsKey(context)) {
+                Queue<DialogManagerInterface> dialogs = map.get(context);
+
+                if (dialogs != null && dialogs.contains(currentActivityDialog)) {
+                    dialogs.remove(currentActivityDialog);
+                }
+                if (dialogs == null || dialogs.isEmpty()) {
+                    map.remove(context);
+                }
+            }
+            currentActivityDialog = null;
+
+            show(null);
+        }
+
+
     }
 }
