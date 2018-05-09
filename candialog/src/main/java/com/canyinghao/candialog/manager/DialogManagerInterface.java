@@ -13,4 +13,5 @@ public interface  DialogManagerInterface {
 
       Activity getActivity();
 
+
 }

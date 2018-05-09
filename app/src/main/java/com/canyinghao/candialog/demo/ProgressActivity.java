@@ -10,6 +10,7 @@ import android.view.View;
 import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
+import com.canyinghao.candialog.manager.DialogManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,12 +19,14 @@ import butterknife.OnClick;
 /**
  * Created by canyinghao on 16/3/3.
  */
-public class ProgressActivity extends AppCompatActivity {
+public class ProgressActivity extends AppCompatActivity  {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class ProgressActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
 
@@ -53,5 +58,12 @@ public class ProgressActivity extends AppCompatActivity {
     public void click(View v) {
 
         App.showToast("fab");
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DialogManager.show(null);
     }
 }

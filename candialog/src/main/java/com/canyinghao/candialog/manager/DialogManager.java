@@ -21,6 +21,7 @@ public class DialogManager {
     private static final Map<Context, DialogManagerInterface> currentMap = new ArrayMap<>();
 
 
+
     public static void show(DialogManagerInterface dialog) {
 
         try {
@@ -89,6 +90,22 @@ public class DialogManager {
                                 canBaseDialog.show();
 
 
+                            } else if (currentDialog instanceof DialogActivityAgent) {
+                                DialogActivityAgent canBaseDialog = ((DialogActivityAgent) currentDialog);
+                                canBaseDialog.showActivity();
+                                if (currentMap.containsKey(context)) {
+                                    currentMap.remove(context);
+                                }
+                                if (map.containsKey(context)) {
+                                    dialogs = map.get(context);
+
+                                    if (dialogs != null && dialogs.contains(currentDialog)) {
+                                        dialogs.remove(currentDialog);
+                                    }
+                                    if (dialogs == null || dialogs.isEmpty()) {
+                                        map.remove(context);
+                                    }
+                                }
                             }
 
 
@@ -140,6 +157,7 @@ public class DialogManager {
 
     public static void onDestroy(Context context) {
 
+
         if (map.containsKey(context)) {
             map.remove(context);
         }
@@ -147,7 +165,6 @@ public class DialogManager {
         if (currentMap.containsKey(context)) {
             currentMap.remove(context);
         }
-
 
 
     }

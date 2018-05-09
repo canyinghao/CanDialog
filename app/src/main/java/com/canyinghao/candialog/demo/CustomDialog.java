@@ -36,4 +36,5 @@ public class CustomDialog extends CanBaseDialog {
 
         App.showToast("hello world");
     }
+
 }

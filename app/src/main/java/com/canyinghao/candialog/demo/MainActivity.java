@@ -17,6 +17,7 @@ import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.CanManagerDialog;
+import com.canyinghao.candialog.manager.DialogActivityAgent;
 import com.canyinghao.candialog.manager.DialogManager;
 
 import butterknife.BindView;
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                         .showManager();
 
 
+                new DialogActivityAgent(this,new Intent(this,ProgressActivity.class)).showManager();
+
+
                 new CanDialog.Builder(this)
                         .setIconType(CanDialog.ICON_WARNING)
                         .setTitle("Dialog Title 2")
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.showManager();
 
 
-                startActivity(new Intent(MainActivity.this,MainActivity.class));
+//                startActivity(new Intent(MainActivity.this,MainActivity.class));
 
 
                 break;
