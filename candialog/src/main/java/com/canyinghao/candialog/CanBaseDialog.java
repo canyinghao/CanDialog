@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
@@ -43,7 +44,7 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
  * limitations under the License.
  */
 
-public abstract class CanBaseDialog extends CanManagerDialog  {
+public abstract class CanBaseDialog extends CanManagerDialog {
 
     //  dialog类型
     public static final int DIALOG_MSG = 0;
@@ -145,11 +146,11 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
 
 
     //   左右间距
-    protected  int leftRightMargin = 0;
+    protected int leftRightMargin = 0;
     //   高度
-    protected  int dialogHeight = LayoutParams.WRAP_CONTENT;
+    protected int dialogHeight = LayoutParams.WRAP_CONTENT;
     //   宽度
-    protected  int dialogWidth = LayoutParams.MATCH_PARENT;
+    protected int dialogWidth = LayoutParams.MATCH_PARENT;
     //   显示动画
     protected Animator mAnimatorStart;
     //    消失动画
@@ -160,7 +161,6 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
     protected AppCompatDialog compatDialog;
     //   消失时监听
     protected CanDialogInterface.OnDismissListener mOnDismissListener;
-
 
 
     //    显示时监听
@@ -187,11 +187,11 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
 
 
     public CanBaseDialog(@NonNull Activity context) {
-        this(context,null);
+        this(context, null);
     }
 
     public CanBaseDialog(@NonNull Activity context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public CanBaseDialog(@NonNull Activity context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
@@ -199,7 +199,7 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
         setActivity(context);
         this.mContext = context;
         this.leftRightMargin = InputUtils.dp2px(mContext, 20);
-        mDialog =this;
+        mDialog = this;
         onCrate();
     }
 
@@ -214,14 +214,14 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
 
     protected void setContentView(View view) {
 
-        setContentView(view,true);
+        setContentView(view, true);
     }
 
-    protected void setContentView(View view,boolean mFocus) {
+    protected void setContentView(View view, boolean mFocus) {
 
         addView(view);
         this.mFocus = mFocus;
-        if(mFocus){
+        if (mFocus) {
             setOnClickListener(null);
         }
 
@@ -258,20 +258,20 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
         params.gravity = Gravity.CENTER;
         params.leftMargin = leftRightMargin;
         params.rightMargin = leftRightMargin;
-        if(isSystemDialog){
+        if (isSystemDialog) {
             setVisibility(View.VISIBLE);
-            compatDialog=  new AppCompatDialog(mContext);
-            compatDialog.setContentView(this,params);
+            compatDialog = new AppCompatDialog(mContext);
+            compatDialog.setContentView(this, params);
             compatDialog.setCancelable(mCancelable);
             compatDialog.setCanceledOnTouchOutside(mCancelable);
             compatDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialogInterface) {
-                    if(mOnDismissListener!=null){
+                    if (mOnDismissListener != null) {
                         mOnDismissListener.onDismiss(CanBaseDialog.this);
                     }
-                    if(mOnDismissListeners!=null&&!mOnDismissListeners.isEmpty()){
-                        for(CanDialogInterface.OnDismissListener onDismissListener:mOnDismissListeners){
+                    if (mOnDismissListeners != null && !mOnDismissListeners.isEmpty()) {
+                        for (CanDialogInterface.OnDismissListener onDismissListener : mOnDismissListeners) {
                             onDismissListener.onDismiss(CanBaseDialog.this);
                         }
                     }
@@ -280,24 +280,34 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
             compatDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
                 public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                    if(mOnKeyListener!=null){
-                        return  mOnKeyListener.onKey(CanBaseDialog.this,i,keyEvent);
+                    if (mOnKeyListener != null) {
+                        return mOnKeyListener.onKey(CanBaseDialog.this, i, keyEvent);
                     }
                     return false;
                 }
             });
             Window dialogWindow = compatDialog.getWindow();
-            if(dialogWindow!=null){
+            if (dialogWindow != null) {
                 dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
-                WindowManager.LayoutParams layoutParams= dialogWindow.getAttributes();
+                WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
                 layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 dialogWindow.setAttributes(layoutParams);
             }
             compatDialog.show();
-        }else{
+        } else {
 
             FrameLayout layout = createAnimLayout();
+
+            try {
+                ViewParent viewParent = getParent();
+                if (viewParent instanceof ViewGroup) {
+
+                    ((ViewGroup) viewParent).removeAllViews();
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
 
             layout.addView(this, params);
 
@@ -329,14 +339,14 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
      */
     public void dismiss() {
 
-        if(isSystemDialog){
+        if (isSystemDialog) {
 
-            if(compatDialog!=null&&compatDialog.isShowing()){
+            if (compatDialog != null && compatDialog.isShowing()) {
                 compatDialog.dismiss();
-                compatDialog=null;
+                compatDialog = null;
             }
 
-        }else{
+        } else {
             if (mAnimatorEnd != null) {
                 try {
 
@@ -355,8 +365,6 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
         }
 
 
-
-
     }
 
 
@@ -370,14 +378,13 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
         if (mOnDismissListener != null) {
             mOnDismissListener.onDismiss(mDialog);
         }
-        if(mOnDismissListeners!=null&&!mOnDismissListeners.isEmpty()){
-            for(CanDialogInterface.OnDismissListener onDismissListener:mOnDismissListeners){
+        if (mOnDismissListeners != null && !mOnDismissListeners.isEmpty()) {
+            for (CanDialogInterface.OnDismissListener onDismissListener : mOnDismissListeners) {
                 onDismissListener.onDismiss(CanBaseDialog.this);
             }
             mOnDismissListeners.clear();
         }
         mOnDismissListener = null;
-
 
 
     }
@@ -441,7 +448,7 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
 
         if (mType != DIALOG_PROGRESS) {
 
-            if(mFocus){
+            if (mFocus) {
                 if (mCancelable) {
                     animLayout.setOnClickListener(dismissListener);
                 } else {
@@ -523,7 +530,6 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
     }
 
 
-
     /**
      * 设置是否可取消
      *
@@ -564,68 +570,89 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
 
     }
 
-    public void setIcon(int resId) {}
+    public void setIcon(int resId) {
+    }
 
-    public void setIcon(Drawable icon) {}
+    public void setIcon(Drawable icon) {
+    }
 
-    public void setTitle(int rid) {}
+    public void setTitle(int rid) {
+    }
 
-    public void setTitle(CharSequence title) {}
-
-
-    public void setMessage(int rid) {}
-
-    public void setMessage(CharSequence title) {}
-
-    public void setPositiveButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {}
+    public void setTitle(CharSequence title) {
+    }
 
 
-    public void setPositiveButton(CharSequence text, boolean dismiss, CanDialogInterface.OnClickListener listener) {}
+    public void setMessage(int rid) {
+    }
 
-    public void setNegativeButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {}
+    public void setMessage(CharSequence title) {
+    }
 
-    public void setNegativeButton(CharSequence text, boolean dismiss, CanDialogInterface.OnClickListener listener) {}
-
-    public void setNeutralButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {}
-
-    public void setNeutralButton(CharSequence text, boolean dismiss, CanDialogInterface.OnClickListener listener) {}
-
-
-    public void setCustomTitle(View customTitleView) {}
+    public void setPositiveButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+    }
 
 
-    public void setView(int layoutResId) {}
+    public void setPositiveButton(CharSequence text, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+    }
+
+    public void setNegativeButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+    }
+
+    public void setNegativeButton(CharSequence text, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+    }
+
+    public void setNeutralButton(int textId, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+    }
+
+    public void setNeutralButton(CharSequence text, boolean dismiss, CanDialogInterface.OnClickListener listener) {
+    }
 
 
-    public void setView(View customView) {}
+    public void setCustomTitle(View customTitleView) {
+    }
+
+
+    public void setView(int layoutResId) {
+    }
+
+
+    public void setView(View customView) {
+    }
 
     public void setView(View customView, int viewSpacingLeft, int viewSpacingTop,
-                        int viewSpacingRight, int viewSpacingBottom) {}
+                        int viewSpacingRight, int viewSpacingBottom) {
+    }
 
 
-    public void setItems(int itemsId, CanDialogInterface.OnClickListener listener) {}
+    public void setItems(int itemsId, CanDialogInterface.OnClickListener listener) {
+    }
 
 
-    public void setItems(final CharSequence[] mItems, final CanDialogInterface.OnClickListener listener) {}
+    public void setItems(final CharSequence[] mItems, final CanDialogInterface.OnClickListener listener) {
+    }
 
     public void setSingleChoiceItems(int itemsId, int checkedItem,
-                                     CanDialogInterface.OnClickListener listener) {}
+                                     CanDialogInterface.OnClickListener listener) {
+    }
 
 
     public void setSingleChoiceItems(final CharSequence[] mItems, int checkedItem,
-                                     final CanDialogInterface.OnClickListener listener) {}
+                                     final CanDialogInterface.OnClickListener listener) {
+    }
 
 
     public void setMultiChoiceItems(int itemsId, final boolean[] checkedItems,
-                                    final CanDialogInterface.OnMultiChoiceClickListener listener) {}
+                                    final CanDialogInterface.OnMultiChoiceClickListener listener) {
+    }
 
     public void setMultiChoiceItems(CharSequence[] items, final boolean[] checkedItems,
-                                    final CanDialogInterface.OnMultiChoiceClickListener listener) {}
+                                    final CanDialogInterface.OnMultiChoiceClickListener listener) {
+    }
 
 
-
-    public void setEditDialog(String hintText, boolean isPwd, final int minLength, final int eyeColor) {}
-
+    public void setEditDialog(String hintText, boolean isPwd, final int minLength, final int eyeColor) {
+    }
 
 
     public void setProgress(String loadText) {
@@ -633,28 +660,32 @@ public abstract class CanBaseDialog extends CanManagerDialog  {
     }
 
 
-    public void setProgressCustomView(View customView) {}
+    public void setProgressCustomView(View customView) {
+    }
 
 
-    public void setBackgroundColor(int color) {}
+    public void setBackgroundColor(int color) {
+    }
 
 
-    public void hideTitle() {}
+    public void hideTitle() {
+    }
 
 
-    public void hideButtons() {}
+    public void hideButtons() {
+    }
 
 
-
-    public void setAnimationMessage(@IntRange(from = ANIM_INFO_SUCCESS, to = ANIM_INFO_WARNING) int animType, String message) {}
-
-
-
-    public void setIconType(int type) {}
+    public void setAnimationMessage(@IntRange(from = ANIM_INFO_SUCCESS, to = ANIM_INFO_WARNING) int animType, String message) {
+    }
 
 
-    public void setIconType(int type, int color) {}
+    public void setIconType(int type) {
+    }
 
+
+    public void setIconType(int type, int color) {
+    }
 
 
 }
