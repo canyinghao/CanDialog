@@ -54,53 +54,68 @@ public class DialogManager {
 
                     if (dialogs != null && !dialogs.isEmpty()) {
 
-                        DialogManagerInterface currentDialog = dialogs.poll();
-
-                        if (currentDialog != null) {
-
-                            currentMap.put(context, currentDialog);
-
-                            if (dialogs.contains(currentDialog)) {
-                                dialogs.remove(currentDialog);
+                        boolean isFinishing = false;
+                        if(context instanceof Activity){
+                            Activity act = (Activity) context;
+                            if(act.isFinishing()){
+                                isFinishing = true;
                             }
+                        }
 
-                            if (dialogs.isEmpty()) {
-                                map.remove(context);
-                            }
-                            currentDialog.showManager();
+                        if(isFinishing){
+                            map.remove(context);
+                        }else{
+                            DialogManagerInterface currentDialog = dialogs.poll();
 
-                            if (currentDialog instanceof Dialog) {
+                            if (currentDialog != null) {
 
-                                Dialog dia = (Dialog) currentDialog;
+                                currentMap.put(context, currentDialog);
 
-                                dia.show();
-
-                            } else if (currentDialog instanceof CanManagerDialog) {
-
-                                CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
-
-                                canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
-
-                                    @Override
-                                    public void onDismiss(CanManagerDialog dialog) {
-                                        showNext(dialog);
-
-                                    }
-                                });
-
-                                canBaseDialog.show();
-
-
-                            } else if (currentDialog instanceof DialogActivityAgent) {
-                                if (currentActivityDialog == null) {
-                                    DialogActivityAgent canBaseDialog = ((DialogActivityAgent) currentDialog);
-                                    canBaseDialog.showActivity();
-                                    currentActivityDialog = currentDialog;
+                                if (dialogs.contains(currentDialog)) {
+                                    dialogs.remove(currentDialog);
                                 }
-                            }
 
+                                if (dialogs.isEmpty()) {
+                                    map.remove(context);
+                                }
+                                currentDialog.showManager();
+
+                                if (currentDialog instanceof Dialog) {
+
+                                    Dialog dia = (Dialog) currentDialog;
+
+                                    dia.show();
+
+                                } else if (currentDialog instanceof CanManagerDialog) {
+
+                                    CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
+
+                                    canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
+
+                                        @Override
+                                        public void onDismiss(CanManagerDialog dialog) {
+                                            showNext(dialog);
+
+                                        }
+                                    });
+
+                                    canBaseDialog.show();
+
+
+                                } else if (currentDialog instanceof DialogActivityAgent) {
+                                    if (currentActivityDialog == null) {
+                                        DialogActivityAgent canBaseDialog = ((DialogActivityAgent) currentDialog);
+                                        canBaseDialog.showActivity();
+                                        currentActivityDialog = currentDialog;
+                                    }
+                                }
+
+
+                            }
 
                         }
+
+
 
                     } else {
 
