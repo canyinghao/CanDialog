@@ -43,7 +43,7 @@ public class CanManagerDialog extends FrameLayout implements DialogManagerInterf
 
 
     public void dismiss(){
-
+        DialogManager.showNext(this);
     }
 
     public void addOnDismissListener(CanDialogInterface.OnDismissListener onDismissListener) {

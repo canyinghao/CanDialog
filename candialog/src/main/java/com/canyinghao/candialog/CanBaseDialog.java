@@ -275,6 +275,7 @@ public abstract class CanBaseDialog extends CanManagerDialog {
                             onDismissListener.onDismiss(CanBaseDialog.this);
                         }
                     }
+                    CanBaseDialog.super.dismiss();
                 }
             });
             compatDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -349,7 +350,6 @@ public abstract class CanBaseDialog extends CanManagerDialog {
         } else {
             if (mAnimatorEnd != null) {
                 try {
-
                     mAnimatorEnd.start();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -363,6 +363,7 @@ public abstract class CanBaseDialog extends CanManagerDialog {
 
             }
         }
+
 
 
     }
@@ -385,7 +386,7 @@ public abstract class CanBaseDialog extends CanManagerDialog {
             mOnDismissListeners.clear();
         }
         mOnDismissListener = null;
-
+        super.dismiss();
 
     }
 

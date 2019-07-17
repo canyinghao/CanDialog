@@ -222,7 +222,9 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.button6:
 
-                new CustomDialog(this).setLeftRightMargin(0).setDialogHeight(500).setDialogWidth(500).show();
+
+                new CustomAppDialog(this).showManager();
+                new CustomDialog(this).setLeftRightMargin(0).setDialogHeight(500).setDialogWidth(500).showManager();
 
 //                View view = LayoutInflater.from(this).inflate(R.layout.custom_layout, null);
 //

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
 
-import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.CanManagerDialog;
 
 import java.util.LinkedList;
@@ -90,14 +89,14 @@ public class DialogManager {
 
                                     CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
 
-                                    canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
-
-                                        @Override
-                                        public void onDismiss(CanManagerDialog dialog) {
-                                            showNext(dialog);
-
-                                        }
-                                    });
+//                                    canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
+//
+//                                        @Override
+//                                        public void onDismiss(CanManagerDialog dialog) {
+//                                            showNext(dialog);
+//
+//                                        }
+//                                    });
 
                                     canBaseDialog.show();
 
