@@ -3,7 +3,6 @@ package com.canyinghao.candialog.manager;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v4.util.ArrayMap;
 
 import com.canyinghao.candialog.CanManagerDialog;
 
@@ -11,6 +10,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+
+import androidx.collection.ArrayMap;
 
 
 public class DialogManager {

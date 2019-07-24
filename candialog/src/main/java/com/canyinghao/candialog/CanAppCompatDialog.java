@@ -2,10 +2,11 @@ package com.canyinghao.candialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatDialog;
 
 import com.canyinghao.candialog.manager.DialogManager;
 import com.canyinghao.candialog.manager.DialogManagerInterface;
+
+import androidx.appcompat.app.AppCompatDialog;
 
 /**
  * Created by jianyang on 2019/7/17.

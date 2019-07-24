@@ -30,15 +30,16 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
 
 import com.canyinghao.candialog.vector.DrawableCompat;
 import com.canyinghao.candialog.vector.ResourcesCompat;
 import com.canyinghao.candialog.vector.Tintable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 
 
 public class MorphButton extends CompoundButton {
@@ -238,7 +239,8 @@ public class MorphButton extends CompoundButton {
         super.jumpDrawablesToCurrentState();
         if (mCurrentDrawable != null) {
 
-            android.support.v4.graphics.drawable.DrawableCompat.jumpToCurrentState(mCurrentDrawable);
+
+            mCurrentDrawable.jumpToCurrentState();
         }
     }
 

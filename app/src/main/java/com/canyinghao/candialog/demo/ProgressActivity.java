@@ -1,9 +1,6 @@
 package com.canyinghao.candialog.demo;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -11,19 +8,20 @@ import com.canyinghao.candialog.CanBaseDialog;
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.manager.DialogManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 
 /**
  * Created by canyinghao on 16/3/3.
  */
-public class ProgressActivity extends AppCompatActivity  {
+public class ProgressActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
-    @BindView(R.id.fab)
+
     FloatingActionButton fab;
 
 
@@ -32,7 +30,8 @@ public class ProgressActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other);
-        ButterKnife.bind(this);
+        toolbar = findViewById(R.id.toolbar);
+        fab = findViewById(R.id.fab);
 
 
         toolbar.setTitle("Progress");
@@ -48,17 +47,17 @@ public class ProgressActivity extends AppCompatActivity  {
             }
         });
 
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                App.showToast("fab");
+            }
+        });
 
 
     }
 
 
-    @OnClick(R.id.fab)
-    public void click(View v) {
-
-        App.showToast("fab");
-    }
 
 
     @Override

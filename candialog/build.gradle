@@ -20,12 +20,15 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:28.0.0'
-    compile 'com.android.support:cardview-v7:28.0.0'
-    compile 'com.canyinghao:cananimation:1.0.5'
-    compile 'com.canyinghao:caneffect:1.0.4'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.android.support:design:28.0.0'
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.canyinghao:caneffect:1.0.5'
+    implementation 'com.canyinghao:cananimation:1.0.6'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
 }
 
 buildscript {

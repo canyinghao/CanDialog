@@ -20,8 +20,9 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+
+import androidx.annotation.NonNull;
 
 
 public abstract class DrawableCompat extends Drawable {
