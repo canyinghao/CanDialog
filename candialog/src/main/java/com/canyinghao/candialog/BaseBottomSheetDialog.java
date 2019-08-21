@@ -10,7 +10,7 @@ import android.support.design.widget.BottomSheetDialog;
 public class BaseBottomSheetDialog extends BottomSheetDialog {
 
     public BaseBottomSheetDialog(Context context) {
-        super(context, 0);
+        this(context, 0);
 
     }
 

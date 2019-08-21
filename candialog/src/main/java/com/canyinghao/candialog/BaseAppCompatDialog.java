@@ -12,7 +12,7 @@ public class BaseAppCompatDialog extends AppCompatDialog {
     private static int windowType = -1;
 
     public BaseAppCompatDialog(Context context) {
-        super(context, 0);
+        this(context, 0);
 
     }
 
