@@ -2,7 +2,6 @@ package com.canyinghao.candialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatDialog;
 
 import com.canyinghao.candialog.manager.DialogManager;
 import com.canyinghao.candialog.manager.DialogManagerInterface;
@@ -11,7 +10,7 @@ import com.canyinghao.candialog.manager.DialogManagerInterface;
  * Created by jianyang on 2019/7/17.
  */
 
-public class CanAppCompatDialog extends AppCompatDialog implements DialogManagerInterface {
+public class CanAppCompatDialog extends BaseAppCompatDialog implements DialogManagerInterface {
     private Context con;
     public CanAppCompatDialog(Context context) {
         super(context);
