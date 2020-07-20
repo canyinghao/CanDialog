@@ -9,6 +9,8 @@ import android.support.design.widget.BottomSheetDialog;
 
 public class BaseBottomSheetDialog extends BottomSheetDialog {
 
+    private static int windowType = -1;
+
     public BaseBottomSheetDialog(Context context) {
         this(context, 0);
 
@@ -28,14 +30,23 @@ public class BaseBottomSheetDialog extends BottomSheetDialog {
     private void initDialog() {
         try {
 
-            if (BaseAppCompatDialog.getWindowType() > 0) {
-                getWindow().setType(BaseAppCompatDialog.getWindowType());
+            if (windowType > 0) {
+                getWindow().setType(windowType);
             }
 
         } catch (Throwable e) {
             e.printStackTrace();
         }
 
+    }
+
+    public static void setWindowType(int type) {
+        windowType = type;
+
+    }
+
+    public static int getWindowType() {
+        return windowType;
     }
 
 
