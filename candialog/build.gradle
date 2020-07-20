@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -19,15 +19,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.canyinghao:caneffect:1.0.5'
-    implementation 'com.canyinghao:cananimation:1.0.6'
-    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.canyinghao:caneffect:5.0.0'
+    implementation 'com.canyinghao:cananimation:5.0.0'
+
 
 }
 

@@ -12,6 +12,11 @@ package com.canyinghao.candialog.vector;
  */
 
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -23,11 +28,6 @@ import android.view.InflateException;
 import android.view.animation.AnimationUtils;
 
 import com.canyinghao.candialog.R;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.TypeEvaluator;
-import com.nineoldandroids.animation.ValueAnimator;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -106,18 +106,10 @@ public class PathAnimatorInflater {
                 anim = loadAnimator(c, res, theme, attrs, null, pixelSize);
             } else if (name.equals("set")) {
                 anim = new AnimatorSet();
-                //TODO: don't care about 'set' attributes for now
-//                TypedArray a;
-//                if (theme != null) {
-//                    a = theme.obtainStyledAttributes(attrs, AnimatorSet, 0, 0);
-//                } else {
-//                    a = res.obtainAttributes(attrs, AnimatorSet);
-//                }
-//                int ordering = a.getInt(R.styleable.AnimatorSet_ordering,
-//                        TOGETHER);
+
                 createAnimatorFromXml(c, res, theme, parser, attrs, (AnimatorSet) anim, TOGETHER,
                         pixelSize);
-//                a.recycle();
+
             } else {
                 throw new RuntimeException("Unknown animator name: " + parser.getName());
             }

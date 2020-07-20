@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import androidx.legacy.widget.Space;
 
 /**
  * Copyright 2016 canyinghao

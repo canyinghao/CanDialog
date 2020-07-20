@@ -12,6 +12,10 @@ package com.canyinghao.candialog.vector;
  */
 
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -28,10 +32,6 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.canyinghao.candialog.R;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorInflater;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ValueAnimator;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

@@ -1,6 +1,7 @@
 package com.canyinghao.candialog;
 
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -37,7 +38,6 @@ import com.canyinghao.cananimation.CanAnimation;
 import com.canyinghao.candialog.vector.ResourcesCompat;
 import com.canyinghao.candialog.vector.Tintable;
 import com.canyinghao.caneffect.ViewAnimationUtils;
-import com.nineoldandroids.animation.Animator;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.IntRange;

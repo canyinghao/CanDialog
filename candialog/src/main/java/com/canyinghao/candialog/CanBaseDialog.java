@@ -1,5 +1,7 @@
 package com.canyinghao.candialog;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -22,8 +24,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.canyinghao.cananimation.CanAnimation;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.IntRange;
