@@ -6,7 +6,7 @@
  
 ## 添加依赖
 ```
-compile 'com.canyinghao:candialog:1.0.9'
+compile 'com.github.canyinghao:CanDialog:5.0.2'
 ```
  
 ## 使用方式 
