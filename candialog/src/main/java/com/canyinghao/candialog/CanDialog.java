@@ -1,6 +1,7 @@
 package com.canyinghao.candialog;
 
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -11,12 +12,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.IntRange;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
@@ -43,7 +38,13 @@ import com.canyinghao.cananimation.CanAnimation;
 import com.canyinghao.candialog.vector.ResourcesCompat;
 import com.canyinghao.candialog.vector.Tintable;
 import com.canyinghao.caneffect.ViewAnimationUtils;
-import com.nineoldandroids.animation.Animator;
+
+import androidx.annotation.ArrayRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.IntegerRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
+import androidx.cardview.widget.CardView;
 
 
 /**

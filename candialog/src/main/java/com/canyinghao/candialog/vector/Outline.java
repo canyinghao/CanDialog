@@ -13,7 +13,9 @@ package com.canyinghao.candialog.vector;
 
 import android.graphics.Path;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+
 
 /**
  * Defines a simple shape, used for bounding graphical regions.

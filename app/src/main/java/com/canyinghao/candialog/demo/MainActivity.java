@@ -3,10 +3,6 @@ package com.canyinghao.candialog.demo;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,39 +15,61 @@ import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.CanManagerDialog;
 import com.canyinghao.candialog.manager.DialogActivityAgent;
 import com.canyinghao.candialog.manager.DialogManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
+
     Toolbar toolbar;
-    @BindView(R.id.button1)
+
     Button button1;
-    @BindView(R.id.button2)
+
     Button button2;
-    @BindView(R.id.button3)
+
     Button button3;
-    @BindView(R.id.button4)
+
     Button button4;
-    @BindView(R.id.fab)
+
     FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        toolbar =  findViewById(R.id.toolbar);
+        button1 =  findViewById(R.id.button1);
+        button2 =  findViewById(R.id.button2);
+        button3 =  findViewById(R.id.button3);
+        button4 =  findViewById(R.id.button4);
+        fab =  findViewById(R.id.fab);
 
         setSupportActionBar(toolbar);
 
+        View.OnClickListener onClickListener  = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                click( view);
+            }
+        };
 
+        button1.setOnClickListener(onClickListener);
+        button2.setOnClickListener(onClickListener);
+        button3.setOnClickListener(onClickListener);
+        button4.setOnClickListener(onClickListener);
+        fab.setOnClickListener(onClickListener);
+        findViewById(R.id.button5).setOnClickListener(onClickListener);
+        findViewById(R.id.button6).setOnClickListener(onClickListener);
+        findViewById(R.id.button7).setOnClickListener(onClickListener);
+        findViewById(R.id.button8).setOnClickListener(onClickListener);
     }
 
 
-    @OnClick({R.id.fab, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8})
+
     public void click(View v) {
         switch (v.getId()) {
 

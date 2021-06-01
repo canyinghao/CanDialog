@@ -31,7 +31,6 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.util.ArrayMap;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
@@ -44,6 +43,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
+
+import androidx.collection.ArrayMap;
 
 //TODO: Add theme support - canApplyTheme() and applyTheme()
 public class VectorDrawable extends DrawableCompat implements Tintable {

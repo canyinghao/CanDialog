@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.canyinghao.candialog.manager.DialogManager;
 import com.canyinghao.candialog.manager.DialogManagerInterface;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 /**
  * Created by jianyang on 2019/7/17.

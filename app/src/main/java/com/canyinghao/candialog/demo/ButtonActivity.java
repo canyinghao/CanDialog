@@ -1,12 +1,13 @@
 package com.canyinghao.candialog.demo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.canyinghao.candialog.CanDialog;
 import com.canyinghao.candialog.CanDialogInterface;
 import com.canyinghao.candialog.CanManagerDialog;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by canyinghao on 16/9/13.

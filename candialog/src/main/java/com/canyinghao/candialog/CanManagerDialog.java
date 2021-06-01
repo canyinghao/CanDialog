@@ -2,8 +2,6 @@ package com.canyinghao.candialog;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -12,6 +10,9 @@ import com.canyinghao.candialog.manager.DialogManagerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by jianyang on 2018/4/10.

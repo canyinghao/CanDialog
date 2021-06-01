@@ -5,8 +5,7 @@ import android.view.View;
 
 import com.canyinghao.candialog.CanAppCompatDialog;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 
 /**
  * Created by jianyang on 2019/7/17.
@@ -31,13 +30,14 @@ public class CustomAppDialog extends CanAppCompatDialog {
 
     private void init(){
         setContentView(R.layout.dialog_custom);
-        ButterKnife.bind(this, this);
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                App.showToast("CustomAppDialog");
+            }
+        });
     }
 
 
-    @OnClick({R.id.btn})
-    public void click(View v){
 
-        App.showToast("CustomAppDialog");
-    }
 }

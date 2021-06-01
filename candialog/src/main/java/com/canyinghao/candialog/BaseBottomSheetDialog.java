@@ -1,7 +1,9 @@
 package com.canyinghao.candialog;
 
 import android.content.Context;
-import android.support.design.widget.BottomSheetDialog;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 
 /**
  * Created by jianyang on 2019/7/17.
