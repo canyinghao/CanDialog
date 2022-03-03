@@ -34,7 +34,9 @@ public class DialogManager {
 
                 if (map.containsKey(context)) {
                     Queue<DialogManagerInterface> queues = map.get(context);
-                    queues.offer(dialog);
+                    if (queues != null) {
+                        queues.offer(dialog);
+                    }
                 } else {
                     Queue<DialogManagerInterface> queues = new LinkedList<>();
                     queues.offer(dialog);
@@ -78,7 +80,6 @@ public class DialogManager {
                                 if (dialogs.isEmpty()) {
                                     map.remove(context);
                                 }
-                                currentDialog.showManager();
 
                                 if (currentDialog instanceof Dialog) {
 
@@ -89,15 +90,6 @@ public class DialogManager {
                                 } else if (currentDialog instanceof CanManagerDialog) {
 
                                     CanManagerDialog canBaseDialog = ((CanManagerDialog) currentDialog);
-
-//                                    canBaseDialog.addOnDismissListener(new CanDialogInterface.OnDismissListener() {
-//
-//                                        @Override
-//                                        public void onDismiss(CanManagerDialog dialog) {
-//                                            showNext(dialog);
-//
-//                                        }
-//                                    });
 
                                     canBaseDialog.show();
 
